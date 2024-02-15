@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ####
-# Copyright (c) 2024 Kong, Inc. <hello@konghq.com>
+# Copyright (c) 2024 Kong, Inc.
 # Copyright (c) 2016-2021 Jakob Westhoff <jakob@westhoffswelt.de>
 #
 # Redistribution and use in source and binary forms, with or without
