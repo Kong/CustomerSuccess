@@ -118,6 +118,13 @@ function print_help() {
   printf "Help is on the way!\n"
 }
 
+# check if jq is installed
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found. Please install it by following instructions at https://jqlang.github.io/jq/"
+    exit 1
+fi
+
 # Get CLI options
 PARAMS=""
 
