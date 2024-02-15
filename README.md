@@ -6,11 +6,11 @@ The purpose of **KICK** is to provide a simple mechanism for counting the number
 
 The general definition of a service is "a discrete unit of programmatic functionality that is exposed for remote consumption and managed through the Software." As such, **KICK** defines a discrete service by leveraging different components that make up a gateway service in Kong Gateway; namely:
 
-> protocol://host:port/path
+     protocol://host:port/path
 
 So, for example, a discrete service could be:
 
-> https://catfacts.ninja/fact
+    https://catfacts.ninja/fact
 
 As you may know, a service in Kong Gateway can have many routes associated with it; from the **KICK** lense, 1 or 1000 routes are irrelevant as long as they are attached to the same service. From the perspective of **KICK** that will count as 1 (one) discrete service.
 
