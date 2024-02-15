@@ -16,7 +16,7 @@ As you may know, a service in Kong Gateway can have many routes associated with 
 
 ## Requirements
 
-As with any software, there are some prerequisists that must be met. At the very minimum you need to know the Admin API URL and the KONG_ADMIN_TOKEN value used to communicate with the Admin API.
+As with any software, there are some prerequisists that must be met. At the very minimum you need to know the Admin API URL and the KONG_ADMIN_TOKEN value used to communicate with the Admin API, and jq.
 
 **KICK** runs in a bash shell, so either a Mac or a Linux machine are necessary to execute the script.
 
@@ -39,7 +39,7 @@ Since the objective of **KICK** is to count discrete services across a user's Ko
       }
     }
 
-In the example above, there are 2 Kong environments--dev and prod. As mentioned earlier, in order for **KICK** to connect to the admin API in each Kong environment the KONG_ADMIN_TOKEN value must be passed in the request's header to the Kong Admin API.
+In the example above, there are 2 Kong environments--dev and prod. As mentioned earlier, in order for **KICK** to connect to the Admin API in each Kong environment the KONG_ADMIN_TOKEN value must be passed in the request's header.
 
 ### JQ
 
