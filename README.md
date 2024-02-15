@@ -43,7 +43,7 @@ In the example above, there are 2 Kong environments--dev and prod. As mentioned 
 
 ### JQ
 
-JSON Query is the tool that is helping **KICK** do it's magic. If you don't have jq installed, please do so or else you will render **KICK** useless.
+[jq](https://jqlang.github.io/jq/) is the tool that is helping **KICK** do it's magic. If you don't have jq installed, please do so or else you will render **KICK** useless.
 
 ## Running KICK
 
