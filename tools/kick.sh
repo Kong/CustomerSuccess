@@ -92,7 +92,7 @@ function prettytable() {
         echo -e "\t${_prettytable_char_top_right}"
 
         # Header
-        echo -e "${header}" | _prettytable_prettify_lines 
+        echo -e "${header}" | _prettytable_prettify_lines
 
         # Horizontal delimiter
         echo -n "${_prettytable_char_vertical_horizontal_left}"
@@ -159,8 +159,16 @@ while (( "$#" )); do
         ;;
     esac
 done
+
 # set positional arguments in their proper place
 eval set -- "$PARAMS"
+
+# Check if jq is available
+if ! command -v jq &> /dev/null; then
+    echo "Error: 'jq' is not installed or not available in the PATH."
+    echo "Please install 'jq' to proceed. You can download it from https://stedolan.github.io/jq/."
+    exit 1
+fi
 
 if [[ -z "$INPUT_FILE" ]]; then
     echo "Input file is missing. Please specify one with the --input-file (-i) option."
@@ -199,10 +207,10 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
         for workspace in $workspaces; do
             workspace_services=$(curl -s -X GET ${host}/${workspace}/services -H "Kong-Admin-Token: ${token}" | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
             cp_services=$(echo $cp_services $workspace_services | jq -s 'add')
-        
+
             services_count=$(echo $workspace_services | jq 'length')
             discrete_count=$(echo $workspace_services | jq 'unique | length')
-            
+
             printf '%s\t%d\t%d\n' $workspace $services_count $discrete_count;
 
             total_services_count=$(($total_services_count + $services_count))
@@ -217,7 +225,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     } | prettytable 3
 
-    printf "\n" 
+    printf "\n"
 done
 
 {
@@ -244,7 +252,7 @@ done
         for workspace in $workspaces; do
             total_workspaces=$(($total_workspaces + 1))
             workspace_services=$(curl -s -X GET ${host}/${workspace}/services -H "Kong-Admin-Token: ${token}" | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
-            all_gateway_services=$(echo $all_gateway_services $workspace_services | jq -s 'add')        
+            all_gateway_services=$(echo $all_gateway_services $workspace_services | jq -s 'add')
         done
     done
 
