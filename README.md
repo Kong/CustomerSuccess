@@ -47,7 +47,7 @@ In the example above, there are 2 Kong environments--dev and prod. As mentioned 
 
 ## Running KICK
 
-Download kick.sh to your Mac or Linux machine, and make sure to change the permissions on the file (i.e., chmod +x kick.sh). You can get creative and add kick.sh to your path if you'd like to make execution for flexible.
+Download [kick.sh](tools/kick.sh) to your Mac or Linux machine, and make sure to change the permissions on the file (i.e., chmod +x kick.sh). You can get creative and add kick.sh to your path if you'd like to make execution for flexible.
 
     $ ./kick.sh -i envs.json
 
