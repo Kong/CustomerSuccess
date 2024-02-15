@@ -22,7 +22,7 @@ As with any software, there are some prerequisists that must be met. At the very
 
 ### Environments File
 
-Since the objective of **KICK** is to count discrete services across a user's Kong estate, it is only logical to expect one or more Kong clusters. For this, a JSON file containing details of said environments must be passed in as an input parameter to **KICK**. An example can be found in (test/envs.json)[test/envs.json]; the general form is as follows:
+Since the objective of **KICK** is to count discrete services across a user's Kong estate, it is only logical to expect one or more Kong clusters. For this, a JSON file containing details of said environments must be passed in as an input parameter to **KICK**. An example can be found in [test/envs.json](test/envs.json); the general form is as follows:
 
     [
       {
