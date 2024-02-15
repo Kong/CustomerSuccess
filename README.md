@@ -51,7 +51,7 @@ Download [kick.sh](tools/kick.sh) to your Mac or Linux machine, and make sure to
 
     $ chmod +x kick.sh
 
-You can get creative and add kick.sh to your path if you'd like to make execution more flexible. Ok, now take it for a drive:
+You can get creative and add kick.sh to your path if you'd like to make execution more flexible. Now take it for a drive:
 
     $ ./kick.sh -i envs.json
 
@@ -90,6 +90,8 @@ That it is. Assuming you used the example above, the output you will see on your
     ├───────────────┼──────────────────┼──────────────┼───────────────┤
     │2              │10                │40            │18             │
     └───────────────┴──────────────────┴──────────────┴───────────────┘
+
+The keen observer will notice that in this example the number of discrete servies is 18. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (5x2), the number of gateway services (20x2), and the number of discrete services (**18**). It it additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 20 gateway services, but out of those only 18 are discrete.
 
 ## Question or Feedback
 
