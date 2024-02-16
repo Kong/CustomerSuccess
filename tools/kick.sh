@@ -115,7 +115,24 @@ function prettytable() {
 }
 
 function print_help() {
-  printf "Help is on the way!\n"
+  cat <<EOF
+Usage: $(basename "$0") [OPTIONS]
+
+Options:
+  -i, --input-file FILE    Specify the input JSON file.
+  -o, --output-file FILE   Specify the output JSON file. Default is 'kong.json'.
+  -p, --pretty-print       Enable pretty printing of the output.
+  -h, --help               Display this help message.
+
+Example:
+  $(basename "$0") -i input.json -o output.json -p
+
+Description:
+  This script analyzes Kong environments and provides a summary of services
+  and workspaces. It requires 'jq' to be installed. You can download it from
+  https://stedolan.github.io/jq/
+
+EOF
 }
 
 # check if jq is installed
@@ -154,11 +171,11 @@ while (( "$#" )); do
         ;;
       -h|--help)
         print_help
-        exit 1
+        exit 0
         ;;
-      -*|--*=)   # unsupported flags
+      -*)   # unsupported flags
         echo "Error: Unsupported flag $1" >&2
-        exit 1
+        exit 2
         ;;
       *) # preserve positional arguments
         PARAMS="$PARAMS $1"
