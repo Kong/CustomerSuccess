@@ -35,7 +35,7 @@ Since the objective of **KICK** is to count discrete services across a user's Ko
         "environment": "prod",
         "admin_host": "https://prod_admin_api_host:8001",
         "admin_token": "foobar",
-        "license_report: 1
+        "license_report": 1
       }
     ]
 
@@ -93,6 +93,10 @@ That it is. Assuming you used the example above, the output you will see on your
     └───────────────┴──────────────────┴──────────────┴───────────────┘
 
 The keen observer will notice that in this example the number of discrete servies is 18. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (5x2), the number of gateway services (20x2), and the number of discrete services (**18**). It is additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 19 gateway services, but out of those only 17 are discrete.
+
+To redirect the output so it is easier to share with others, you could redirect the output to a file, like this:
+
+    $ ./kick.sh -i envs.json > services.txt
 
 ## Under the Hood
 What devil's magic is going on to make this work?--You might ask. Truth of the matter is that **KICK** is leveraging publicly documented endpoints from the Kong Admin API, doing some iterations over the data collected, and then using jq to sort, count, and find unique strings.
