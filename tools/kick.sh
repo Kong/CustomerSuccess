@@ -37,7 +37,6 @@ _prettytable_char_vertical_horizontal_top="┬"
 _prettytable_char_vertical_horizontal_bottom="┴"
 _prettytable_char_vertical_horizontal="┼"
 
-
 # Escape codes
 
 # Default colors
@@ -135,12 +134,37 @@ Description:
 EOF
 }
 
-# check if jq is installed
-if ! command -v jq &> /dev/null
-then
-    echo "jq could not be found. Please install it by following instructions at https://jqlang.github.io/jq/"
-    exit 1
-fi
+# Get a list of workspaces
+function fetch_workspaces() {
+  local host="$1"
+  local token="$2"
+
+  if output=$(curl -s -X GET "${host}/workspaces" -H "Kong-Admin-Token: ${token}"); then
+    response="$output"
+  else
+    echo "Error: Failed to fetch workspaces from ${host}" >&2
+    return 1
+  fi
+
+  #workspaces=$(echo "$response" | jq -r '.data[].name' | sort)
+  #return "${workspaces}"
+  echo "$response" | jq -r '.data[].name' | sort
+}
+
+# Get a list of services in the workspace
+function fetch_workspace_services() {
+  local host="$1"
+  local token="$2"
+  local workspace="$3"
+
+  local workspace_services
+  local services_count
+  local discrete_count
+
+  workspace_services=$(curl -s -X GET "${host}/${workspace}/services" -H "Kong-Admin-Token: ${token}" | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+
+  echo "$workspace_services"
+}
 
 # Get CLI options
 PARAMS=""
@@ -206,87 +230,73 @@ printf "\n";
 
 ENV_COUNT=$(jq '. | length' $INPUT_FILE)
 
+# Count for all environments
+all_gateway_services=[]
+total_workspaces=0
+total_kong_environments=0
+
 for ((i=0; $i<$ENV_COUNT; i++)); do
-  # A little clunky but this works
+    # A little clunky but this works
     env=$(jq -r '.['$i'].environment' $INPUT_FILE)
     host=$(jq -r '.['$i'].admin_host' $INPUT_FILE)
     token=$(jq -r '.['$i'].admin_token' $INPUT_FILE)
     license=$(jq -r '.['$i'].license_report' $INPUT_FILE)
+    total_kong_environments=$(($total_kong_environments + 1))
 
     printf " KONG CLUSTER: $env\n";
     printf " ADMIN HOST  : $host\n";
-    {
-        # Fetch list of workspaces
-        workspaces=$(curl -s -X GET ${host}/workspaces -H "Kong-Admin-Token: ${token}" | jq -r '.data[].name' | sort)
 
-        # Count the unique services
-        total_discrete_count=0
-        total_services_count=0
+    # Count the unique services
+    total_discrete_count=0
+    total_services_count=0
+    total_services_output=""
+    summary_output=""
 
-        # Track all services separately so we can do one final check for discrete across all workspaces
-        cp_services=[]
+    # Track all services separately so we can do one final check for discrete across all workspaces
+    cp_services=[]
 
-        # Iterate over each workspace and add services to the array
-        printf 'Workspace\tGateway Svcs\tDiscrete Svcs\n';
-        for workspace in $workspaces; do
-            workspace_services=$(curl -s -X GET ${host}/${workspace}/services -H "Kong-Admin-Token: ${token}" | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
-            cp_services=$(echo $cp_services $workspace_services | jq -s 'add')
+    # Fetch list of workspaces
+    workspaces=$(fetch_workspaces "$host" "$token")
 
-            services_count=$(echo $workspace_services | jq 'length')
-            discrete_count=$(echo $workspace_services | jq 'unique | length')
+    if [ -n "$workspaces" ]; then
+      # Iterate over each workspace and add services to the array
+      total_services_output+=$(printf 'Workspace\tGateway Svcs\tDiscrete Svcs\n';)
+      for workspace in $workspaces; do
+        workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace")
+        cp_services=$(echo "$cp_services $workspace_svc_list" | jq -s 'add')
+        all_gateway_services=$(echo "$all_gateway_services $workspace_svc_list" | jq -s 'add')
 
-            printf '%s\t%d\t%d\n' $workspace $services_count $discrete_count;
+        services_count=$(echo "$workspace_svc_list" | jq 'length')
+        discrete_count=$(echo "$workspace_svc_list" | jq 'unique | length')
 
-            total_services_count=$(($total_services_count + $services_count))
-            total_discrete_count=$(($total_discrete_count + $discrete_count))
-        done
+        total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
 
+        total_services_count=$((total_services_count + services_count))
+        total_discrete_count=$((total_discrete_count + discrete_count))
+      done
+    else
+      echo "No workspaces to process."
+    fi
 
-        total_discrete_cross_workspace_count=$(echo $cp_services | jq 'unique | length')
+    total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
 
-        printf '%s\t%s\t%s\n'  "" "" "";
-        printf '%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_workspace_count (x-workspace)";
+    if [ -n "$total_services_output" ]; then
+      total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
+      total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_workspace_count (x-workspace)";)
+      echo "$total_services_output" | prettytable 3
+    fi
 
-    } | prettytable 3
+    all_gateway_services_count=$(echo "$all_gateway_services" | jq 'length')
+    all_discrete_services_count=$(echo "$all_gateway_services" | jq 'unique | length')
+
+    summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Clusters" "Total Workspaces" "Gateway Svcs" "Discrete Svsc")
+    summary_output+=$(printf '\n%d\t%d\t%d\t%d\n'  $total_kong_environments $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
 
     printf "\n"
 done
 
 printf " SUMMARY\n"
-{
-    # Count the unique services
-    all_gateway_services=[]
-    total_workspaces=0
-    total_kong_environments=0
 
-    # not thrilled to repeat the loop here as a whole
-    for ((i=0; $i<$ENV_COUNT; i++)); do
-      # A little clunky but this works
-        host=$(jq -r '.['$i'].admin_host' $INPUT_FILE)
-        token=$(jq -r '.['$i'].admin_token' $INPUT_FILE)
-        license=$(jq -r '.['$i'].license_report' $INPUT_FILE)
-
-        total_kong_environments=$(($total_kong_environments + 1))
-        # Fetch list of workspaces
-        workspaces=$(curl -s -X GET ${host}/workspaces -H "Kong-Admin-Token: ${token}" | jq -r '.data[].name' | sort)
-
-        # Track all services separately so we can do one final check for discrete across all workspaces
-        cp_services=[]
-
-        # Iterate over each workspace and add services to the array
-        for workspace in $workspaces; do
-            total_workspaces=$(($total_workspaces + 1))
-            workspace_services=$(curl -s -X GET ${host}/${workspace}/services -H "Kong-Admin-Token: ${token}" | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
-            all_gateway_services=$(echo $all_gateway_services $workspace_services | jq -s 'add')
-        done
-    done
-
-    all_gateway_services_count=$(echo $all_gateway_services | jq 'length')
-    all_discrete_services_count=$(echo $all_gateway_services | jq 'unique | length')
-
-    printf '%s\t%s\t%s\t%s\n'  "Kong Clusters" "Total Workspaces" "Gateway Svcs" "Discrete Svsc"
-    printf '%d\t%d\t%d\t%d\n'  $total_kong_environments $total_workspaces $all_gateway_services_count $all_discrete_services_count
-
-} | prettytable 4
+echo "$summary_output" | prettytable 4
 
 printf "\n"
