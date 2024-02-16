@@ -37,7 +37,7 @@ Since the objective of **KICK** is to count discrete services across a user's Ko
         "admin_token": "foobar",
         "license_report: 1
       }
-    }
+    ]
 
 In the example above, there are 2 Kong environments--dev and prod. As mentioned earlier, in order for **KICK** to connect to the Admin API in each Kong environment the KONG_ADMIN_TOKEN value must be passed in the request's header.
 
