@@ -85,6 +85,7 @@ That it is. Assuming you used the example above, the output you will see on your
     │Total        │20            │18 (x-workspace)  │
     └─────────────┴──────────────┴──────────────────┘
 
+    SUMMARY
     ┌───────────────┬──────────────────┬──────────────┬───────────────┐
     │Kong Clusters  │Total Workspaces  │Gateway Svcs  │Discrete Svsc  │
     ├───────────────┼──────────────────┼──────────────┼───────────────┤
@@ -93,11 +94,22 @@ That it is. Assuming you used the example above, the output you will see on your
 
 The keen observer will notice that in this example the number of discrete servies is 18. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (5x2), the number of gateway services (20x2), and the number of discrete services (**18**). It is additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 19 gateway services, but out of those only 17 are discrete.
 
+## Under the Hood
+What devil's magic is going on to make this work?--You might ask. Truth of the matter is that **KICK** is leveraging publicly documented endpoints from the Kong Admin API, doing some iterations over the data collected, and then using jq to sort, count, and find unique strings.
+
+If you are not familiar with the [Kong Admin API](https://docs.konghq.com/gateway/latest/admin-api/), that is a good place to start so you can familiarize yourself with the endpoints used by **KICK**. Since we are dealing with services per workspace, and services as a whole, the 2 Admin API endpoints used are:
+
+1. [Listing workspaces](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Workspaces/list-workspace)
+2. [Listing services](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Services/list-service)
+
+The logic behind the scenes is rather simple. As mentioned above, it consists of some loops to get all services in each workspace, build a master list of every service across all Kong environments, and then use jq to find the data we need. If you are curious about the number of Admin API calls made, that all depends on how many workspaces you have in each Kong cluster. You can do a cursory search for curl in [kick.sh](tools/kick.sh), and figure it out rather quickly.
+
+**KICK** is read-only as it relates to Kong Gateway; the source code is provided in efforts of full transparency, and the ability to modify if needed.
+
 ## Question or Feedback
 
 **KICK** is in its infancy. If you have suggestions for improvements or run into any trouble executing **KICK**, please contact your Kong account team (Account Executive or Customer Success Manager) for assistance.
 
 ## Disclaimer
 
-**KICK** it **NOT** a Kong product, nor is it supported by Kong. This script is only made available to help understand the sprawl (if any) of duplicate services in a user's Kong environment. **KICK** is read-only as it relates to Kong Gateway; the source code is provided in efforts of full transparency, and the ability to modify if needed.
-      
+**KICK** it **NOT** a Kong product, nor is it supported by Kong. This script is only made available to help understand the sprawl (if any) of duplicate services in a user's Kong environment.

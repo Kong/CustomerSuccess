@@ -1,13 +1,13 @@
 [
   {
     "environment": "prod",
-    "admin_host": "https://admin-api-dlamotta-standalone-adktisod.kong-sales-engineering.com",
+    "admin_host": "https://admin-api-dlamotta-standalone-deuyyocw.kong-sales-engineering.com",
     "admin_token": "kong_admin",
     "license_report": true
   },
   {
     "environment": "dev",
-    "admin_host": "https://admin-api-dlamotta-standalone-pdikxovw.kong-sales-engineering.com",
+    "admin_host": "https://admin-api-dlamotta-standalone-deuyyocw.kong-sales-engineering.com",
     "admin_token": "kong_admin",
     "license_report": true
   }

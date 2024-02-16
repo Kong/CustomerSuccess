@@ -235,6 +235,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     printf "\n"
 done
 
+printf " SUMMARY\n"
 {
     # Count the unique services
     all_gateway_services=[]
