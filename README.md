@@ -4,7 +4,7 @@ Welcome to the tools section of the Kong Customer Success team. As of this momen
 
 The purpose of **KICK** is to provide a simple mechanism for counting the number of services (total and discrete) across one or more Kong Enterprise environments, and gather an understanding of how many duplicate services exist across one's Kong estate.
 
-The general definition of a service is "a discrete unit of programmatic functionality that is exposed for remote consumption and managed through the Software." As such, **KICK** defines a discrete service by leveraging different components that make up a gateway service in Kong Gateway; namely:
+The general definition of a service is "a discrete unit of programmatic functionality that is exposed for remote consumption and managed through the Software." As such, **KICK** defines a discrete service by leveraging different components that make up a service in Kong Gateway; namely:
 
      protocol://host:port/path
 
