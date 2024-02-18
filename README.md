@@ -14,6 +14,8 @@ So, for example, a discrete service could be:
 
 As you may know, a service in Kong Gateway can have many routes associated with it; from the **KICK** lense, 1 or 1000 routes are irrelevant as long as they are attached to the same service. From the perspective of **KICK** that will count as 1 (one) discrete service.
 
+**KICK** also gathers the license report for each Kong environment provided, and stores the output in a JSON file. All files generated are placed in the provided output directory (see below).
+
 ## Requirements
 
 As with any software, there are some prerequisists that must be met. At the very minimum you need to know the Admin API URL and the KONG_ADMIN_TOKEN value used to communicate with the Admin API, and jq.
@@ -28,14 +30,12 @@ Since the objective of **KICK** is to count discrete services across a user's Ko
       {
         "environment": "dev",
         "admin_host": "https://dev_admin_api_host:8001",
-        "admin_token": "foobar",
-        "license_report: 1
+        "admin_token": "foobar"
       },
       {
         "environment": "prod",
         "admin_host": "https://prod_admin_api_host:8001",
-        "admin_token": "foobar",
-        "license_report": 1
+        "admin_token": "foobar"
       }
     ]
 
@@ -53,7 +53,7 @@ Download [kick.sh](tools/kick.sh) to your Mac or Linux machine, and make sure to
 
 You can get creative and add kick.sh to your path if you'd like to make execution more flexible. Now take it for a drive:
 
-    $ ./kick.sh -i envs.json
+    $ ./kick.sh -i envs.json -o ./test
 
 That it is. Assuming you used the example above, the output you will see on your terminal should be something like this:
 
@@ -94,9 +94,17 @@ That it is. Assuming you used the example above, the output you will see on your
 
 The keen observer will notice that in this example the number of discrete servies is 18. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (5x2), the number of gateway services (20x2), and the number of discrete services (**18**). It is additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 19 gateway services, but out of those only 17 are discrete.
 
-To redirect the output so it is easier to share with others, you could redirect the output to a file, like this:
+The -o flag specifies a directory where all the license report files will be created.
 
-    $ ./kick.sh -i envs.json > services.txt
+So it is easier to share the output with others, you can compress the contents of the generated directory, and share a single file. Like this:
+
+    $ ./kick.sh -i envs.json -o ./test
+    $ cd ./test
+    $ zip test.zip *
+
+To get to the help menu, you can execute the script like this:
+
+    $ ./kick.sh -h
 
 ## Under the Hood
 What devil's magic is going on to make this work?--You might ask. Truth of the matter is that **KICK** is leveraging publicly documented endpoints from the Kong Admin API, doing some iterations over the data collected, and then using jq to sort, count, and find unique strings.
@@ -105,6 +113,7 @@ If you are not familiar with the [Kong Admin API](https://docs.konghq.com/gatewa
 
 1. [Listing workspaces](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Workspaces/list-workspace)
 2. [Listing services](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Services/list-service)
+3. [License report](https://docs.konghq.com/gateway/latest/licenses/report/#generate-a-license-report)
 
 The logic behind the scenes is rather simple. As mentioned above, it consists of some loops to get all services in each workspace, build a master list of every service across all Kong environments, and then use jq to find the data we need. If you are curious about the number of Admin API calls made, that all depends on how many workspaces you have in each Kong cluster. You can do a cursory search for curl in [kick.sh](tools/kick.sh), and figure it out rather quickly.
 
