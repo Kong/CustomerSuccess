@@ -1,0 +1,12 @@
+[
+  {
+    "environment": "prod",
+    "admin_host": "https://admin-api-dlamotta-standalone-oovdblje.kong-sales-engineering.com",
+    "admin_token": "kong_admin"
+  },
+  {
+    "environment": "dev",
+    "admin_host": "https://admin-api-dlamotta-standalone-oovdblje.kong-sales-engineering.com",
+    "admin_token": "kong_admin"
+  }
+]

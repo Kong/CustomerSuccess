@@ -25,6 +25,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
+KICK_VERSION="1.0.0"
+
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
 _prettytable_char_vertical="│"
@@ -118,52 +120,80 @@ function print_help() {
 Usage: $(basename "$0") [OPTIONS]
 
 Options:
-  -i, --input-file FILE    Specify the input JSON file.
-  -o, --output-file FILE   Specify the output JSON file. Default is 'kong.json'.
-  -p, --pretty-print       Enable pretty printing of the output.
+  -i, --input-file FILE    Details of every Kong environment.
+  -o, --output-dir DIR     Name of the directory where all license reports will be saved.
+  -s, --suppress           Suppress printing to standard output.
   -h, --help               Display this help message.
 
 Example:
-  $(basename "$0") -i input.json -o output.json -p
+  $(basename "$0") -i input.json -o ./licenses/test
 
 Description:
   This script analyzes Kong environments and provides a summary of services
-  and workspaces. It requires 'jq' to be installed. You can download it from
+  and workspaces. In addition, it collects the output of the license report
+  for every Kong enviroment provided.
+  
+  It requires 'jq' to be installed. You can download it from
   https://stedolan.github.io/jq/
+
+Disclaimr:
+  KICK is NOT a Kong product, nor is it supported by Kong.
 
 EOF
 }
 
-# Get a list of workspaces
-function fetch_workspaces() {
+function print_version() {
+  cat <<EOF
+
+Kong Interactive Consumption Kollector (KICK)
+Version $KICK_VERSION
+
+KICK is NOT a Kong product, nor is it supported by Kong.
+
+EOF
+}
+
+# Generic method for hitting endpoints on the Admin API
+function fetch_from_admin_api() {
   local host="$1"
   local token="$2"
+  local path="$3"
 
-  if output=$(curl -s -X GET "${host}/workspaces" -H "Kong-Admin-Token: ${token}"); then
+  if output=$(curl -s -X GET "${host}/${path}" -H "Kong-Admin-Token: ${token}"); then
     response="$output"
   else
-    echo "Error: Failed to fetch workspaces from ${host}" >&2
+    echo "Error: Failed to fetch ${path} from ${host}" >&2
     return 1
   fi
 
-  #workspaces=$(echo "$response" | jq -r '.data[].name' | sort)
-  #return "${workspaces}"
-  echo "$response" | jq -r '.data[].name' | sort
+  echo "$response"
+}
+
+# Gets the license report 
+function fetch_license_report() {
+  local name="$1"
+  local host="$2"
+  local token="$3"
+  local path="/license/report"
+
+  echo $(fetch_from_admin_api $host $token $path) | jq -s 'add'
+}
+
+function fetch_workspaces() {
+  local host="$1"
+  local token="$2"
+  local path="/workspaces"
+
+  echo $(fetch_from_admin_api $host $token $path) | jq -r '.data[].name' | sort
 }
 
 # Get a list of services in the workspace
 function fetch_workspace_services() {
   local host="$1"
   local token="$2"
-  local workspace="$3"
+  local path="/$3/services"
 
-  local workspace_services
-  local services_count
-  local discrete_count
-
-  workspace_services=$(curl -s -X GET "${host}/${workspace}/services" -H "Kong-Admin-Token: ${token}" | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
-
-  echo "$workspace_services"
+  echo $(fetch_from_admin_api $host $token $path | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
 }
 
 # Get CLI options
@@ -182,17 +212,21 @@ while (( "$#" )); do
         ;;
       -o|--output-file)
         if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
-          OUTPUT_FILE=$2
+          OUTPUT_DIR=$2
           shift 2
         else
           echo "Error: Output file is missing" >&2
           exit 1
         fi
         ;;
-      -p|--pretty-print)
-        PRETTY_PRINT=1
+      -s|--suppress)
+        NO_PRETTY_PRINT=1
         shift
         ;;
+      -v|--version)
+        print_version
+        exit 0
+        ;;        
       -h|--help)
         print_help
         exit 0
@@ -220,11 +254,18 @@ fi
 
 if [[ -z "$INPUT_FILE" ]]; then
     echo "Input file is missing. Please specify one with the --input-file (-i) option."
+    exit 1
 fi
 
-if [[ -z "$OUTPUT_FILE" ]]; then
-    OUTPUT_FILE="kong.json"
+if [[ -z "$OUTPUT_DIR" ]]; then
+    echo "Output directory is missing. Please specify one with the --ouput-dir (-o) option."
+    exit 1
 fi
+
+# Create the OUTPUT_DIR if it doesn't exist
+if [ ! -d "$OUTPUT_DIR" ]; then
+  mkdir "$OUTPUT_DIR"
+fi 
 
 printf "\n";
 
@@ -233,18 +274,19 @@ ENV_COUNT=$(jq '. | length' $INPUT_FILE)
 # Count for all environments
 all_gateway_services=[]
 total_workspaces=0
-total_kong_environments=0
+
+kick_json=$(printf '{"kick_version":"%s", "kong_environments": %d, "kong": [' $KICK_VERSION $ENV_COUNT)
 
 for ((i=0; $i<$ENV_COUNT; i++)); do
     # A little clunky but this works
     env=$(jq -r '.['$i'].environment' $INPUT_FILE)
     host=$(jq -r '.['$i'].admin_host' $INPUT_FILE)
     token=$(jq -r '.['$i'].admin_token' $INPUT_FILE)
-    license=$(jq -r '.['$i'].license_report' $INPUT_FILE)
-    total_kong_environments=$(($total_kong_environments + 1))
 
-    printf " KONG CLUSTER: $env\n";
-    printf " ADMIN HOST  : $host\n";
+    if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+      printf " KONG CLUSTER: $env\n";
+      printf " ADMIN HOST  : $host\n";
+    fi
 
     # Count the unique services
     total_discrete_count=0
@@ -258,10 +300,13 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     # Fetch list of workspaces
     workspaces=$(fetch_workspaces "$host" "$token")
 
+    kick_json+=$(printf '{ "name": "%s", "host": "%s", "workspaces": [' $env $host)
+
     if [ -n "$workspaces" ]; then
       # Iterate over each workspace and add services to the array
       total_services_output+=$(printf 'Workspace\tGateway Svcs\tDiscrete Svcs\n';)
       for workspace in $workspaces; do
+        total_workspaces=$(($total_workspaces + 1))
         workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace")
         cp_services=$(echo "$cp_services $workspace_svc_list" | jq -s 'add')
         all_gateway_services=$(echo "$all_gateway_services $workspace_svc_list" | jq -s 'add')
@@ -273,30 +318,56 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
         total_services_count=$((total_services_count + services_count))
         total_discrete_count=$((total_discrete_count + discrete_count))
+
+        kick_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' $workspace $services_count $discrete_count)
       done
+
+      # remove the trailing comma (,) from the json constructed above
+      kick_json=$(echo $kick_json | sed 's/.$//')
     else
       echo "No workspaces to process."
     fi
 
+    # close the json array
+    kick_json+="], "
     total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
+
+    # let's add totals per workspace
+    kick_json+=$(printf '"workspaces_services": %d, "workspaces_discrete": %d},' $total_services_count $total_discrete_cross_workspace_count)
 
     if [ -n "$total_services_output" ]; then
       total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
       total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_workspace_count (x-workspace)";)
-      echo "$total_services_output" | prettytable 3
+
+      if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+        echo "$total_services_output" | prettytable 3
+      fi
     fi
 
     all_gateway_services_count=$(echo "$all_gateway_services" | jq 'length')
     all_discrete_services_count=$(echo "$all_gateway_services" | jq 'unique | length')
 
     summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Clusters" "Total Workspaces" "Gateway Svcs" "Discrete Svsc")
-    summary_output+=$(printf '\n%d\t%d\t%d\t%d\n'  $total_kong_environments $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
+    summary_output+=$(printf '\n%d\t%d\t%d\t%d\n'  $ENV_COUNT $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
 
-    printf "\n"
+    # Write license output to file, including discrete services information
+    license=$(fetch_license_report $env $host $token)
+    echo $license > "$OUTPUT_DIR/$env.json"
+
+    if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+      printf "\n"
+    fi
 done
 
-printf " SUMMARY\n"
+kick_json=$(echo $kick_json | sed 's/.$//')
 
-echo "$summary_output" | prettytable 4
+if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+  printf " SUMMARY\n"
+  echo "$summary_output" | prettytable 4
+  printf "\n"
+fi
 
-printf "\n"
+kick_json+=$(printf '], "total_workspaces": %d, "total_gateway_services": %d, "total_discrete_services": %d }' $total_workspaces $all_gateway_services_count $all_discrete_services_count)
+
+# store kick information in its own JSON file
+echo $kick_json > "$OUTPUT_DIR/kick.json"
