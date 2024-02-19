@@ -10,7 +10,7 @@ The general definition of a service is "a discrete unit of programmatic function
 
 So, for example, a discrete service could be:
 
-    https://catfacts.ninja/fact
+    https://catfact.ninja/fact
 
 As you may know, a service in Kong Gateway can have many routes associated with it; from the **KICK** lense, 1 or 1000 routes are irrelevant as long as they are attached to the same service. From the perspective of **KICK** that will count as 1 (one) discrete service.
 
