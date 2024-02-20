@@ -109,7 +109,7 @@ To get to the help menu, you can execute the script like this:
 ## Under the Hood
 What devil's magic is going on to make this work?--You might ask. Truth of the matter is that **KICK** is leveraging publicly documented endpoints from the Kong Admin API, doing some iterations over the data collected, and then using jq to sort, count, and find unique strings.
 
-If you are not familiar with the [Kong Admin API](https://docs.konghq.com/gateway/latest/admin-api/), that is a good place to start so you can familiarize yourself with the endpoints used by **KICK**. Since we are dealing with services per workspace, and services as a whole, the 2 Admin API endpoints used are:
+If you are not familiar with the [Kong Admin API](https://docs.konghq.com/gateway/latest/admin-api/), that is a good place to start so you can familiarize yourself with the endpoints used by **KICK**. Since we are dealing with services per workspace, and services as a whole, the 3 Admin API endpoints used are:
 
 1. [Listing workspaces](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Workspaces/list-workspace)
 2. [Listing services](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Services/list-service)
