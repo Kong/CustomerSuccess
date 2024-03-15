@@ -123,6 +123,7 @@ Options:
   -i, --input-file FILE    Details of every Kong environment.
   -o, --output-dir DIR     Name of the directory where all license reports will be saved.
   -s, --suppress           Suppress printing to standard output.
+  -v, --version            Shows the version of KICK
   -h, --help               Display this help message.
 
 Example:
