@@ -48,14 +48,14 @@ Since the objective of **KICK** is to count discrete services across a user's Ko
 
 In the example above, there are 2 Kong environments--dev and prod. As mentioned earlier, in order for **KICK** to connect to the Admin API in each Kong environment the KONG_ADMIN_TOKEN value must be passed in the request's header.
 
-New as of KICK 1.1, there is a section where you are able to provide "discreteness" between your API services. What this means is that you have the same "discrete unit of functionality" in different environments (e.g., dev, prod, qa, and stage), and the hosts are aptly named based on the environment they serve, KICK will count those services as one. An example should help illustrate this.
+New as of KICK 1.1, there is a section where you are able to provide "discreteness" between your API services. What this means is that if you have the same "discrete unit of programmatic functionality" in different environments (e.g., dev, prod, qa, and stage), and the hosts are aptly named based on the environment they serve, KICK will count those services as one. An example should help illustrate this.
     
     https://dev.catfact.ninja/fact
     https://qa.catfact.ninja/fact
     https://stage.catfact.ninja/fact
     https://prod.catfact.ninja/fact
 
-The four services above, irrespective of the hosts where they are located, will be counted as 1 discrete service by KICK.
+The four services above, irrespective of the Kong control planes (i.e., environments) where they are located, will be counted as 1 discrete service by KICK.
 
 ### JQ
 
