@@ -26,20 +26,36 @@ As with any software, there are some prerequisists that must be met. At the very
 
 Since the objective of **KICK** is to count discrete services across a user's Kong estate, it is only logical to expect one or more Kong clusters. For this, a JSON file containing details of said environments must be passed in as an input parameter to **KICK**. An example can be found in [input/envs.json](input/envs.json); the general form is as follows:
 
-    [
-      {
-        "environment": "dev",
-        "admin_host": "https://dev_admin_api_host:8001",
-        "admin_token": "foobar"
-      },
-      {
-        "environment": "prod",
-        "admin_host": "https://prod_admin_api_host:8001",
-        "admin_token": "foobar"
-      }
-    ]
+    {
+        "environments:
+        [
+            {
+                "environment": "dev",
+                "admin_host": "https://dev_admin_api_host:8001",
+                "admin_token": "foobar"
+            },
+            {
+                "environment": "prod",
+                "admin_host": "https://prod_admin_api_host:8001",
+                "admin_token": "foobar"
+            }
+        ],
+        "discrete": {
+            "master": "prod",
+            "minions": "dev|stage|qa"
+        }
+    }
 
 In the example above, there are 2 Kong environments--dev and prod. As mentioned earlier, in order for **KICK** to connect to the Admin API in each Kong environment the KONG_ADMIN_TOKEN value must be passed in the request's header.
+
+New as of KICK 1.1, there is a section where you are able to provide "discreteness" between your API services. What this means is that you have the same "discrete unit of functionality" in different environments (e.g., dev, prod, qa, and stage), and the hosts are aptly named based on the environment they serve, KICK will count those services as one. An example should help illustrate this.
+    
+    https://dev.catfact.ninja/fact
+    https://qa.catfact.ninja/fact
+    https://stage.catfact.ninja/fact
+    https://prod.catfact.ninja/fact
+
+The four services above, irrespective of the hosts where they are located, will be counted as 1 discrete service by KICK.
 
 ### JQ
 

@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KICK_VERSION="1.0.0"
+KICK_VERSION="1.1.0"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -123,7 +123,7 @@ Options:
   -i, --input-file FILE    Details of every Kong environment.
   -o, --output-dir DIR     Name of the directory where all license reports will be saved.
   -s, --suppress           Suppress printing to standard output.
-  -v, --version            Shows the version of KICK
+  -v, --version            Shows the version of KICK.
   -h, --help               Display this help message.
 
 Example:
@@ -194,7 +194,13 @@ function fetch_workspace_services() {
   local token="$2"
   local path="/$3/services"
 
-  echo $(fetch_from_admin_api $host $token $path | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+  local services=$(fetch_from_admin_api $host $token $path | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+
+  if [[ ! -z "$4" && ! -z "$5" ]]; then    
+    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= sub($minions;$master)')
+  fi
+
+  echo $services
 }
 
 # Get CLI options
@@ -270,7 +276,9 @@ fi
 
 printf "\n";
 
-ENV_COUNT=$(jq '. | length' $INPUT_FILE)
+ENV_COUNT=$(jq -r '.environments | length' $INPUT_FILE)
+MASTER=$(jq -r '.discrete.master' $INPUT_FILE)
+MINIONS=$(jq -r '.discrete.minions' $INPUT_FILE)
 
 # Count for all environments
 all_gateway_services=[]
@@ -280,9 +288,9 @@ kick_json=$(printf '{"kick_version":"%s", "kong_environments": %d, "kong": [' $K
 
 for ((i=0; $i<$ENV_COUNT; i++)); do
     # A little clunky but this works
-    env=$(jq -r '.['$i'].environment' $INPUT_FILE)
-    host=$(jq -r '.['$i'].admin_host' $INPUT_FILE)
-    token=$(jq -r '.['$i'].admin_token' $INPUT_FILE)
+    env=$(jq -r '.environments.['$i'].environment' $INPUT_FILE)
+    host=$(jq -r '.environments.['$i'].admin_host' $INPUT_FILE)
+    token=$(jq -r '.environments.['$i'].admin_token' $INPUT_FILE)
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
       printf " KONG CLUSTER: $env\n";
@@ -308,7 +316,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
       total_services_output+=$(printf 'Workspace\tGateway Svcs\tDiscrete Svcs\n';)
       for workspace in $workspaces; do
         total_workspaces=$(($total_workspaces + 1))
-        workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace")
+        workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace" "$MASTER" "$MINIONS")
         cp_services=$(echo "$cp_services $workspace_svc_list" | jq -s 'add')
         all_gateway_services=$(echo "$all_gateway_services $workspace_svc_list" | jq -s 'add')
 
@@ -348,8 +356,8 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     all_gateway_services_count=$(echo "$all_gateway_services" | jq 'length')
     all_discrete_services_count=$(echo "$all_gateway_services" | jq 'unique | length')
 
-    summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Clusters" "Total Workspaces" "Gateway Svcs" "Discrete Svsc")
-    summary_output+=$(printf '\n%d\t%d\t%d\t%d\n'  $ENV_COUNT $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
+    summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Clusters" "Total Workspaces" "Gateway Svcs" "Discrete Svcs")
+    summary_output+=$(printf '\n%d\t%d\t%d\t%d (x-cluster)\n'  $ENV_COUNT $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
 
     # Write license output to file, including discrete services information
     license=$(fetch_license_report $env $host $token)
