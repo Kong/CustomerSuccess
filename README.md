@@ -78,35 +78,37 @@ That it is. Assuming you used the example above, the output you will see on your
     ┌─────────────┬──────────────┬──────────────────┐
     │Workspace    │Gateway Svcs  │Discrete Svcs     │
     ├─────────────┼──────────────┼──────────────────┤
+    │Discrete     │4             │1                 │
     │Engineering  │1             │1                 │
     │WS1          │0             │0                 │
     │WS2          │0             │0                 │
     │WS3          │0             │0                 │
     │default      │19            │17                │
     │             │              │                  │
-    │Total        │20            │18 (x-workspace)  │
-    └─────────────┴──────────────┴──────────────────┘
-
+    │Total        │24            │19 (x-workspace)  │
+    └─────────────┴──────────────┴──────────────────┘    
+    
     KONG CLUSTER: dev
     ADMIN HOST  : https://dev_admin_api_host:8001
     ┌─────────────┬──────────────┬──────────────────┐
     │Workspace    │Gateway Svcs  │Discrete Svcs     │
     ├─────────────┼──────────────┼──────────────────┤
+    │Discrete     │4             │1                 │
     │Engineering  │1             │1                 │
     │WS1          │0             │0                 │
     │WS2          │0             │0                 │
     │WS3          │0             │0                 │
     │default      │19            │17                │
     │             │              │                  │
-    │Total        │20            │18 (x-workspace)  │
+    │Total        │24            │19 (x-workspace)  │
     └─────────────┴──────────────┴──────────────────┘
 
     SUMMARY
-    ┌───────────────┬──────────────────┬──────────────┬───────────────┐
-    │Kong Clusters  │Total Workspaces  │Gateway Svcs  │Discrete Svsc  │
-    ├───────────────┼──────────────────┼──────────────┼───────────────┤
-    │2              │10                │40            │18             │
-    └───────────────┴──────────────────┴──────────────┴───────────────┘
+    ┌───────────────┬──────────────────┬──────────────┬────────────────┐
+    │Kong Clusters  │Total Workspaces  │Gateway Svcs  │Discrete Svcs   │
+    ├───────────────┼──────────────────┼──────────────┼────────────────┤
+    │2              │12                │48            │19 (x-cluster)  │
+    └───────────────┴──────────────────┴──────────────┴────────────────┘
 
 The keen observer will notice that in this example the number of discrete servies is 18. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (5x2), the number of gateway services (20x2), and the number of discrete services (**18**). It is additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 19 gateway services, but out of those only 17 are discrete.
 
