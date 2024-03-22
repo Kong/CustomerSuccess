@@ -61,6 +61,8 @@ The four services above, irrespective of the Kong control planes (i.e., environm
 
 [jq](https://jqlang.github.io/jq/) is the tool that allows **KICK** to do its magic. If you don't have jq installed, please do so or else you will render **KICK** useless.
 
+**KICK** has been tested successfully with version 1.7.1 on MacOS 14.2.1
+
 ## Running KICK
 
 Download [kick.sh](tools/kick.sh) to your Mac or Linux machine, and make sure to change the permissions on the file:
