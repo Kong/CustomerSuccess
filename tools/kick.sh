@@ -160,7 +160,7 @@ function fetch_from_admin_api() {
   local token="$2"
   local path="$3"
 
-  if output=$(curl -s -X GET "${host}/${path}" -H "Kong-Admin-Token: ${token}"); then
+  if output=$(curl -s -X GET "${host}${path}" -H "Kong-Admin-Token: ${token}"); then
     response="$output"
   else
     echo "Error: Failed to fetch ${path} from ${host}" >&2
