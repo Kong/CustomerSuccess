@@ -12,7 +12,7 @@ So, for example, a discrete service could be:
 
     https://catfact.ninja/fact
 
-As you may know, a service in Kong Gateway can have many routes associated with it; from the **KICK** lense, 1 or 1000 routes are irrelevant as long as they are attached to the same service. From the perspective of **KICK** that will count as 1 (one) discrete service.
+As you may know, a service in Kong Gateway can have many routes associated with it; from the **KICK** lens, 1 or 1000 routes are irrelevant as long as they are attached to the same service. From the perspective of **KICK** that will count as 1 (one) discrete service.
 
 **KICK** also gathers the license report for each Kong environment provided, and stores the output in a JSON file. All files generated are placed in the provided output directory (see below).
 
@@ -112,7 +112,7 @@ That it is. Assuming you used the example above, the output you will see on your
     │2              │12                │48            │19 (x-cluster)  │
     └───────────────┴──────────────────┴──────────────┴────────────────┘
 
-The keen observer will notice that in this example the number of discrete servies is 19. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (6x2), the number of gateway services (24x2), and the number of discrete services (**19**). It is additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 19 gateway services, but out of those only 17 are discrete. The Discrete workspace has the `https://[dev|qa|stage|prod].catfact.ninja/fact` service definitions, which count as 4 gateway services, but only as 1 discrete service.
+The keen observer will notice that in this example the number of discrete services is 19. This is the exact result expected, as dev and prod Kong clusters are identical. **KICK** is aggregating the number of clusters (2), the number of workspaces (6x2), the number of gateway services (24x2), and the number of discrete services (**19**). It is additionally worth mentioning that **KICK** shows the number of discrete services across an individual Kong cluster's workspaces. We can see above that the default workspace has 19 gateway services, but out of those only 17 are discrete. The Discrete workspace has the `https://[dev|qa|stage|prod].catfact.ninja/fact` service definitions, which count as 4 gateway services, but only as 1 discrete service.
 
 The -o flag specifies a directory where all the license report files will be created.
 
