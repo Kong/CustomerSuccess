@@ -298,8 +298,6 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     fi
 
     # Count the unique services
-    total_discrete_count=0
-    total_services_count=0
     total_services_output=""
     summary_output=""
 
@@ -325,9 +323,6 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
         total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
 
-        total_services_count=$((total_services_count + services_count))
-        total_discrete_count=$((total_discrete_count + discrete_count))
-
         kick_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' $workspace $services_count $discrete_count)
       done
 
@@ -339,6 +334,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     # close the json array
     kick_json+="], "
+    total_services_count=$(echo "$cp_services" | jq 'length')
     total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
 
     # let's add totals per workspace

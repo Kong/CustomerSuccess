@@ -1,0 +1,2920 @@
+_format_version: "3.0"
+certificates:
+- cert: |-
+    -----BEGIN CERTIFICATE-----
+    MIIGXDCCBUSgAwIBAgIQCQvzvxJMV3wR57KtyESW8jANBgkqhkiG9w0BAQsFADCB
+    jzELMAkGA1UEBhMCR0IxGzAZBgNVBAgTEkdyZWF0ZXIgTWFuY2hlc3RlcjEQMA4G
+    A1UEBxMHU2FsZm9yZDEYMBYGA1UEChMPU2VjdGlnbyBMaW1pdGVkMTcwNQYDVQQD
+    Ey5TZWN0aWdvIFJTQSBEb21haW4gVmFsaWRhdGlvbiBTZWN1cmUgU2VydmVyIENB
+    MB4XDTIzMTExMDAwMDAwMFoXDTI0MTExMDIzNTk1OVowJzElMCMGA1UEAwwcKi5r
+    b25nLXNhbGVzLWVuZ2luZWVyaW5nLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEP
+    ADCCAQoCggEBANk0Sj2P6Nv1B79uSNZPTxBP10v7uPWMv7A3a9maPnQUxz6XcP/2
+    14suBD6hPHxSf93nS4gTtbzWZyhpAcT80LVFbxPFgxPl4VSehkiLkrF92FFS3YQu
+    uP27KWszNfgodJmWS8cWPfJpRmNG9mLlkOYT3FV98QvhlBES8Y5ngFhtzIxfhNaN
+    9v84oHHsTNcpOzGm+yxOAOBOx7l7Sz20BwIkbOowSn1ro5nyg+dfliXn1pZHIQRd
+    bC8RJr74quySBnMgortpl+xmGC1zCtwpjjMPiuJ3B+5RqMZngUC5KMYrDP7mDhCb
+    2NODmiuj5sXa06JcxVwh4Da2Zq/V4nD+y5UCAwEAAaOCAxkwggMVMB8GA1UdIwQY
+    MBaAFI2MXsRUrYrhd+mb+ZsF4bgBjWHhMB0GA1UdDgQWBBTLMUiCCuxKxAGvt3wo
+    GCXj0JgK9jAOBgNVHQ8BAf8EBAMCBaAwDAYDVR0TAQH/BAIwADAdBgNVHSUEFjAU
+    BggrBgEFBQcDAQYIKwYBBQUHAwIwSQYDVR0gBEIwQDA0BgsrBgEEAbIxAQICBzAl
+    MCMGCCsGAQUFBwIBFhdodHRwczovL3NlY3RpZ28uY29tL0NQUzAIBgZngQwBAgEw
+    gYQGCCsGAQUFBwEBBHgwdjBPBggrBgEFBQcwAoZDaHR0cDovL2NydC5zZWN0aWdv
+    LmNvbS9TZWN0aWdvUlNBRG9tYWluVmFsaWRhdGlvblNlY3VyZVNlcnZlckNBLmNy
+    dDAjBggrBgEFBQcwAYYXaHR0cDovL29jc3Auc2VjdGlnby5jb20wQwYDVR0RBDww
+    OoIcKi5rb25nLXNhbGVzLWVuZ2luZWVyaW5nLmNvbYIaa29uZy1zYWxlcy1lbmdp
+    bmVlcmluZy5jb20wggF9BgorBgEEAdZ5AgQCBIIBbQSCAWkBZwB1AHb/iD8KtvuV
+    UcJhzPWHujS0pM27KdxoQgqf5mdMWjp0AAABi7oKeJYAAAQDAEYwRAIgHGORmPmR
+    e+ZXKevjBz1KgQMMZUN28PQvYhs+Z5K+5CMCIHJ6neM+/Y3boToCfqhjtpJY/dt9
+    S96SGATCnRyStCRYAHYAPxdLT9ciR1iUHWUchL4NEu2QN38fhWrrwb8ohez4ZG4A
+    AAGLugp4vwAABAMARzBFAiAncmqhKVKGz11VW4Xm8Y7AZQYkq/hPyYlCIroma0/n
+    5AIhAIf05bT558bNdH1uj5HrE5LXY50kXtNFDZMzae2UySeqAHYA7s3QZNXbGs7F
+    XLedtM0TojKHRny87N7DUUhZRnEftZsAAAGLugp4xAAABAMARzBFAiA5ak7GJ0bC
+    TEZLNjpYsV/qSgLKpWPvVPHrjYMOQ+xJtQIhAO2tbNhBKDBy6VGUVIVmim47oOeS
+    /NL1AtkcgBQJELF2MA0GCSqGSIb3DQEBCwUAA4IBAQAEeKZmuShwCktObIvQzThk
+    jYowAfkru3SouBAiXxqFxp5eBt5CxLmYxpLWEftFliWJc+AVg5fpfm5aIRA5qygV
+    ylxZlyXGkvnJWanutWuF3LPHdPwwfx+eZhA7HG2l5FLK+g3+tZRwUh/ohgOoQFyZ
+    XrmJYngI8DjT9En3Ce6MF1MvtwSl1SfGPFILTXHY5CBWMeEnmfHm68SQRfKrbRsF
+    xgWcBsHyXT5aXkZZ8tsUlxwE0fnnxVE6mCZu0zpHgL/+SnyrJkhyPljm19P45gmS
+    eNrlDdpyP0QYgVarPHt8hHdRWDTKxloqGP9ZCz+aD0FpPvAkUlSxDJN6JiV0wEgI
+    -----END CERTIFICATE-----
+  id: 7f7732ed-c10b-4c6c-8d97-7f14f0a66f75
+  key: |-
+    -----BEGIN PRIVATE KEY-----
+    MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDZNEo9j+jb9Qe/
+    bkjWT08QT9dL+7j1jL+wN2vZmj50FMc+l3D/9teLLgQ+oTx8Un/d50uIE7W81mco
+    aQHE/NC1RW8TxYMT5eFUnoZIi5KxfdhRUt2ELrj9uylrMzX4KHSZlkvHFj3yaUZj
+    RvZi5ZDmE9xVffEL4ZQREvGOZ4BYbcyMX4TWjfb/OKBx7EzXKTsxpvssTgDgTse5
+    e0s9tAcCJGzqMEp9a6OZ8oPnX5Yl59aWRyEEXWwvESa++KrskgZzIKK7aZfsZhgt
+    cwrcKY4zD4ridwfuUajGZ4FAuSjGKwz+5g4Qm9jTg5oro+bF2tOiXMVcIeA2tmav
+    1eJw/suVAgMBAAECggEACJIRo+A71gITLjCR2zMB8ajU3ACwya+mGLP3I3z8neP8
+    ALJFGTSKSMmmDTqbgmRW+1CXIGV2tF7ZbzTFhxpauexld6hBhdV6ULZ4ogAv56UJ
+    lhvo9cBKOGjcN4irxoECKNVPZCmyhBA3YM96BWj9kLaT6SOxEUDzcMEImw/mdpa7
+    8LO4J3UhAGMnw9QD2KORozDtsb/KQ10z71vMKgYQz8gBYB3+kH2H12NFPxQQJ1n4
+    /vMnYBFMgcv/pdw64Rz+U0m8lgQI0TGa+eNdouPgJL3X26ph/l+R6zyIS1Zaedq/
+    SmapGYA7y1lLeoQK1F/MuXwB2cXsKWT1V1Den8VLgQKBgQDwMpDzrEmmX3Au8AYM
+    1xWFQojPa5xXhS0WSFjnwyf9TW/wxkVNUl9hVclPajEau7rbUKLMWHzgOelyfEKj
+    Tfu3b0QmNvsDO6ZZz8SgHe8yAY8LT4B+V4ALOdsVbGZcEI09ig+Vg1HXbk5T41tc
+    E6FMmycK/HrVnRUNHFhcXdjJsQKBgQDnfnf2BehnC3k7jpeuNy0Go24SJSAjZqr4
+    EYgzx/AjQvp1ZYPE5CiJ2PBRwcER8ckpHTzADwDDFpCxgLGZzO3gHP/wXZCNcPRk
+    VLzq0RXT6mzWijpIkub4JfIJPmGq1SxyfF2/N9Liv5TSR4nxaU1qY/6OC7pAuAJ9
+    YpDuv2g1JQKBgE7fS9m36TdIf33qMxJkThzEDEiP/XZ/tJ5sg0UXQDpdAzT85iTN
+    t6QulzwMkrNEkccSY2LWa6r1WULOqtMU+GLzll02EJavL6CuKNKrAbBZ8q60HG1g
+    LhuBk/8k6Tex968NdrCRvn4PKolBTu6dQ4n0KI3i+jLKse7sL9ekuVsBAoGAHeIJ
+    gkzI72RfxfxmQCsHOPAn6Ve5ilhagaNhva11plejFTyBgg0h3omOnD8yuSpJGXGY
+    wgItywFCtGc0hfIaUu/rag/p9Rg7tCfsKzPKaYy9eARn+a5c+nOLhv3yhab3EeBU
+    CbcfFf49K9foSq2ZPL6jwZpp9KjMSXtL0kYLIbECgYApauAVJyQTV9ynYnsVD8qy
+    it75V6xAGWR28csOu6GLDbMyL3oljjTr04KKZjik1XekYvRrmaHcHU2JowOf7OrH
+    kkmW+/f79YPBiAjw71Wv+5t/Bh9BeSBFwhTwBawBDNqQEsbm7qnF0CuyXnCvdVS2
+    CZZsngqAefca44CbWIbqoA==
+    -----END PRIVATE KEY-----
+  snis:
+  - name: admin-api-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    tags:
+    - managed-by-ingress-controller
+  - name: manager-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    tags:
+    - managed-by-ingress-controller
+  - name: portal-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    tags:
+    - managed-by-ingress-controller
+  - name: portalapi-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    tags:
+    - managed-by-ingress-controller
+  tags:
+  - managed-by-ingress-controller
+consumers:
+- acls:
+  - group: aclGroup1
+    tags:
+    - managed-by-deck
+    - se-demo
+  keyauth_credentials:
+  - key: acl11
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  username: acl11
+- acls:
+  - group: aclGroup1
+    tags:
+    - managed-by-deck
+    - se-demo
+  keyauth_credentials:
+  - key: acl12
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  username: acl12
+- acls:
+  - group: aclGroup2
+    tags:
+    - managed-by-deck
+    - se-demo
+  keyauth_credentials:
+  - key: acl21
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  username: acl21
+- acls:
+  - group: aclGroup2
+    tags:
+    - managed-by-deck
+    - se-demo
+  keyauth_credentials:
+  - key: acl22
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  username: acl22
+plugins:
+- config:
+    bandwidth_metrics: true
+    latency_metrics: true
+    per_consumer: true
+    status_code_metrics: true
+    upstream_health_metrics: true
+  enabled: true
+  name: prometheus
+  protocols:
+  - grpc
+  - grpcs
+  - http
+  - https
+  tags:
+  - k8s-name:prometheus
+  - k8s-kind:KongClusterPlugin
+  - k8s-uid:6265e55a-be45-4100-b4bb-55bf4ca59182
+  - k8s-group:configuration.konghq.com
+  - k8s-version:v1
+  - managed-by-ingress-controller
+services:
+- connect_timeout: 60000
+  enabled: true
+  host: apollo-service.se-kong-mesh.svc
+  name: apollo-service
+  plugins:
+  - config:
+      content_type: application/json
+      custom_fields_by_lua:
+        streams: local ts=string.format('%18.0f', os.time()*1000000000) local log_payload         =
+          kong.log.serialize() local service = log_payload['service'] or 'noService'
+          local cjson         = require "cjson" local payload_string = cjson.encode(log_payload)
+          local t         = { {stream = {gateway='kong-gateway', service=service['name']},
+          values={{ts,         payload_string}}} } return t
+      flush_timeout: 2
+      headers: {}
+      http_endpoint: http://loki.mesh-observability.svc:3100/loki/api/v1/push
+      keepalive: 60000
+      method: POST
+      queue:
+        initial_retry_delay: 0.01
+        max_batch_size: 1
+        max_bytes: null
+        max_coalescing_delay: 1
+        max_entries: 10000
+        max_retry_delay: 60
+        max_retry_time: 60
+      queue_size: 1
+      retry_count: 10
+      timeout: 10000
+    enabled: true
+    name: http-log
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    tags:
+    - se-konnect-ops
+  - config:
+      batch_flush_delay: null
+      batch_span_count: null
+      connect_timeout: 1000
+      endpoint: http://jaeger-collector.mesh-observability.svc:4318/v1/traces
+      header_type: b3
+      headers: null
+      http_response_header_for_traceid: x-kong-traceid
+      queue:
+        initial_retry_delay: 0.01
+        max_batch_size: 1
+        max_bytes: null
+        max_coalescing_delay: 1
+        max_entries: 10000
+        max_retry_delay: 60
+        max_retry_time: 60
+      read_timeout: 5000
+      resource_attributes: null
+      send_timeout: 5000
+    enabled: true
+    name: opentelemetry
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    tags:
+    - se-konnect-ops
+  port: 4000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: graphql
+    path_handling: v0
+    paths:
+    - /graphql
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - se-konnect-ops
+  tags:
+  - se-konnect-ops
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: httpbin.org
+  name: appreg
+  path: /anything
+  plugins:
+  - config:
+      auto_approve: true
+      description: Demo Service to demo application registration on the Developer
+        Portal
+      display_name: Demo Service
+      show_issuer: false
+    enabled: true
+    name: application-registration
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    tags:
+    - managed-by-deck
+    - se-demo
+  - config:
+      accept_http_if_already_terminated: false
+      anonymous: null
+      auth_header_name: authorization
+      enable_authorization_code: false
+      enable_client_credentials: true
+      enable_implicit_grant: false
+      enable_password_grant: false
+      global_credentials: false
+      hide_credentials: false
+      mandatory_scope: false
+      persistent_refresh_token: false
+      pkce: lax
+      provision_key: "true"
+      refresh_token_ttl: 1209600
+      reuse_refresh_token: false
+      scopes: null
+      token_expiration: 7200
+    enabled: true
+    name: oauth2
+    protocols:
+    - grpc
+    - grpcs
+    - http
+    - https
+    - ws
+    - wss
+    tags:
+    - managed-by-deck
+    - se-demo
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: appreg
+    path_handling: v0
+    paths:
+    - /appreg
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: grpcbin.se-kong-mesh.svc
+  name: grpcbin
+  port: 9000
+  protocol: grpc
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - grpc-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: grpc-echo
+    path_handling: v0
+    paths:
+    - /
+    - /grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo
+    preserve_host: false
+    protocols:
+    - grpc
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: httpbin.se-kong-mesh.svc
+  name: httpbin
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: acl
+    path_handling: v0
+    paths:
+    - /acl
+    plugins:
+    - config:
+        allow:
+        - aclGroup1
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        anonymous: null
+        hide_credentials: false
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - apikey
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+      tags:
+      - managed-by-deck
+      - se-demo
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: acme
+    path_handling: v0
+    paths:
+    - /acme
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  - https_redirect_status_code: 426
+    name: caching
+    path_handling: v0
+    paths:
+    - /caching
+    plugins:
+    - config:
+        cache_control: false
+        cache_ttl: 300
+        content_type:
+        - text/plain
+        - application/json
+        ignore_uri_case: false
+        memory:
+          dictionary_name: kong_db_cache
+        request_method:
+        - GET
+        - HEAD
+        response_code:
+        - 200
+        - 301
+        - 404
+        response_headers:
+          X-Cache-Key: true
+          X-Cache-Status: true
+          age: true
+        storage_ttl: null
+        strategy: memory
+        vary_headers: null
+        vary_query_params: null
+      enabled: true
+      name: proxy-cache
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: canary
+    path_handling: v0
+    paths:
+    - /canary
+    plugins:
+    - config:
+        canary_by_header_name: null
+        duration: 3600
+        groups: null
+        hash: none
+        hash_header: null
+        percentage: 50
+        start: null
+        steps: 3600
+        upstream_fallback: false
+        upstream_host: mockbin.se-kong-mesh.svc
+        upstream_port: 3000
+        upstream_uri: /request
+      enabled: true
+      name: canary
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: httpbin
+    path_handling: v0
+    paths:
+    - /bin
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: jq
+    path_handling: v0
+    paths:
+    - /jq
+    plugins:
+    - config:
+        request_if_media_type:
+        - application/json
+        request_jq_program: .fahrenheit = .celsius * 1.8 + 32
+        request_jq_program_options:
+          ascii_output: false
+          compact_output: true
+          join_output: false
+          raw_output: false
+          sort_keys: false
+        response_if_media_type:
+        - application/json
+        response_if_status_code:
+        - 200
+        response_jq_program: .headers.jq = "Hello, this is jq"
+        response_jq_program_options:
+          ascii_output: false
+          compact_output: true
+          join_output: false
+          raw_output: false
+          sort_keys: false
+      enabled: true
+      name: jq
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: opentelemetry
+    path_handling: v0
+    paths:
+    - /opentelemetry
+    plugins:
+    - config:
+        allow:
+        - aclGroup1
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        content_type: application/json
+        custom_fields_by_lua:
+          streams: local ts=string.format('%18.0f', os.time()*1000000000) local log_payload         =
+            kong.log.serialize() local service = log_payload['service'] or 'noService'
+            local cjson         = require "cjson" local payload_string = cjson.encode(log_payload)
+            local t         = { {stream = {gateway='kong-gateway', service=service['name']},
+            values={{ts,         payload_string}}} } return t
+        flush_timeout: 2
+        headers: {}
+        http_endpoint: http://loki.mesh-observability.svc:3100/loki/api/v1/push
+        keepalive: 60000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: 1
+        retry_count: 10
+        timeout: 10000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        anonymous: null
+        hide_credentials: false
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - apikey
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        batch_flush_delay: null
+        batch_span_count: null
+        connect_timeout: 1000
+        endpoint: http://jaeger-collector.mesh-observability.svc:4318/v1/traces
+        header_type: b3
+        headers: null
+        http_response_header_for_traceid: x-kong-traceid
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        read_timeout: 5000
+        resource_attributes: null
+        send_timeout: 5000
+      enabled: true
+      name: opentelemetry
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: 100
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: null
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        add:
+          body: []
+          headers:
+          - X-Telemetry-Testing:complete
+          querystring: []
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring: []
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: null
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    - config:
+        add:
+          headers:
+          - X-Hello-Response:transformed
+          if_status: []
+          json: []
+          json_types: []
+        allow:
+          json: null
+        append:
+          headers: []
+          if_status: []
+          json: []
+          json_types: []
+        dots_in_keys: true
+        remove:
+          headers: []
+          if_status: []
+          json: []
+        rename:
+          headers: []
+          if_status: []
+        replace:
+          body: null
+          headers: []
+          if_status: []
+          json: []
+          json_types: []
+        transform:
+          functions: []
+          if_status: []
+          json: []
+      enabled: true
+      name: response-transformer-advanced
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    preserve_host: false
+    protocols:
+    - http
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: proxy
+    path_handling: v0
+    paths:
+    - /proxy
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: rate-limiting
+    path_handling: v0
+    paths:
+    - /rateLimiting
+    plugins:
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: 1000
+        limit_by: consumer
+        minute: 10
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 2
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - managed-by-deck
+      - se-demo
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - https_redirect_status_code: 426
+    name: route-by-header0
+    path_handling: v0
+    paths:
+    - /routeByHeader
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: httpbin.se-kong-mesh.svc
+  name: httpbin-okta
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: oidc-okta
+    path_handling: v0
+    paths:
+    - /okta
+    plugins:
+    - config:
+        anonymous: null
+        audience: null
+        audience_claim:
+        - aud
+        audience_required: null
+        auth_methods:
+        - password
+        - client_credentials
+        - authorization_code
+        - bearer
+        - introspection
+        - userinfo
+        - kong_oauth2
+        - refresh_token
+        - session
+        authenticated_groups_claim: null
+        authorization_cookie_domain: null
+        authorization_cookie_http_only: true
+        authorization_cookie_name: authorization
+        authorization_cookie_path: /
+        authorization_cookie_same_site: Default
+        authorization_cookie_secure: null
+        authorization_endpoint: null
+        authorization_query_args_client: null
+        authorization_query_args_names: null
+        authorization_query_args_values: null
+        authorization_rolling_timeout: 600
+        bearer_token_cookie_name: null
+        bearer_token_param_type:
+        - header
+        - query
+        - body
+        by_username_ignore_case: false
+        cache_introspection: true
+        cache_token_exchange: true
+        cache_tokens: true
+        cache_tokens_salt: null
+        cache_ttl: 3600
+        cache_ttl_max: null
+        cache_ttl_min: null
+        cache_ttl_neg: null
+        cache_ttl_resurrect: null
+        cache_user_info: true
+        client_alg: null
+        client_arg: client_id
+        client_auth: null
+        client_credentials_param_type:
+        - header
+        - query
+        - body
+        client_id:
+        - '{vault://gcp/kong-okta-oidc-client-id}'
+        client_jwk: null
+        client_secret:
+        - '{vault://gcp/kong-okta-oidc-client-secret}'
+        consumer_by:
+        - username
+        - custom_id
+        consumer_claim: null
+        consumer_optional: false
+        credential_claim:
+        - sub
+        disable_session: null
+        discovery_headers_names: null
+        discovery_headers_values: null
+        display_errors: false
+        domains: null
+        downstream_access_token_header: null
+        downstream_access_token_jwk_header: null
+        downstream_headers_claims: null
+        downstream_headers_names: null
+        downstream_id_token_header: null
+        downstream_id_token_jwk_header: null
+        downstream_introspection_header: null
+        downstream_introspection_jwt_header: null
+        downstream_refresh_token_header: null
+        downstream_session_id_header: null
+        downstream_user_info_header: null
+        downstream_user_info_jwt_header: null
+        enable_hs_signatures: false
+        end_session_endpoint: null
+        expose_error_code: true
+        extra_jwks_uris: null
+        forbidden_destroy_session: true
+        forbidden_error_message: Forbidden
+        forbidden_redirect_uri: null
+        groups_claim:
+        - groups
+        groups_required:
+        - team-sales-engineers
+        hide_credentials: false
+        http_proxy: null
+        http_proxy_authorization: null
+        http_version: 1.1
+        https_proxy: null
+        https_proxy_authorization: null
+        id_token_param_name: null
+        id_token_param_type:
+        - header
+        - query
+        - body
+        ignore_signature: []
+        introspect_jwt_tokens: false
+        introspection_accept: application/json
+        introspection_check_active: true
+        introspection_endpoint: null
+        introspection_endpoint_auth_method: null
+        introspection_headers_client: null
+        introspection_headers_names: null
+        introspection_headers_values: null
+        introspection_hint: access_token
+        introspection_post_args_client: null
+        introspection_post_args_names: null
+        introspection_post_args_values: null
+        introspection_token_param_name: token
+        issuer: https://konghq.okta.com/oauth2/default
+        issuers_allowed: null
+        jwt_session_claim: sid
+        jwt_session_cookie: null
+        keepalive: true
+        leeway: 0
+        login_action: upstream
+        login_methods:
+        - authorization_code
+        login_redirect_mode: fragment
+        login_redirect_uri: null
+        login_tokens:
+        - id_token
+        logout_methods:
+        - POST
+        - DELETE
+        logout_post_arg: null
+        logout_query_arg: null
+        logout_redirect_uri: null
+        logout_revoke: false
+        logout_revoke_access_token: true
+        logout_revoke_refresh_token: true
+        logout_uri_suffix: null
+        max_age: null
+        no_proxy: null
+        password_param_type:
+        - header
+        - query
+        - body
+        preserve_query_args: false
+        proof_of_possession_auth_methods_validation: true
+        proof_of_possession_mtls: "off"
+        redirect_uri:
+        - https://proxy-dlamotta-standalone-pmjonobp.kong-sales-engineering.com/okta
+        rediscovery_lifetime: 30
+        refresh_token_param_name: null
+        refresh_token_param_type:
+        - header
+        - query
+        - body
+        refresh_tokens: true
+        resolve_distributed_claims: false
+        response_mode: query
+        response_type:
+        - code
+        reverify: false
+        revocation_endpoint: null
+        revocation_endpoint_auth_method: null
+        revocation_token_param_name: token
+        roles_claim:
+        - roles
+        roles_required: null
+        run_on_preflight: true
+        scopes:
+        - openid
+        scopes_claim:
+        - scope
+        scopes_required: null
+        search_user_info: false
+        session_absolute_timeout: 86400
+        session_audience: default
+        session_cookie_domain: null
+        session_cookie_http_only: true
+        session_cookie_name: session
+        session_cookie_path: /
+        session_cookie_same_site: Lax
+        session_cookie_secure: null
+        session_enforce_same_subject: false
+        session_hash_storage_key: false
+        session_hash_subject: false
+        session_idling_timeout: 900
+        session_memcached_host: 127.0.0.1
+        session_memcached_port: 11211
+        session_memcached_prefix: null
+        session_memcached_socket: null
+        session_redis_cluster_max_redirections: null
+        session_redis_cluster_nodes: null
+        session_redis_connect_timeout: null
+        session_redis_host: 127.0.0.1
+        session_redis_password: null
+        session_redis_port: 6379
+        session_redis_prefix: null
+        session_redis_read_timeout: null
+        session_redis_send_timeout: null
+        session_redis_server_name: null
+        session_redis_socket: null
+        session_redis_ssl: false
+        session_redis_ssl_verify: false
+        session_redis_username: null
+        session_remember: false
+        session_remember_absolute_timeout: 2592000
+        session_remember_cookie_name: remember
+        session_remember_rolling_timeout: 604800
+        session_request_headers: null
+        session_response_headers: null
+        session_rolling_timeout: 3600
+        session_secret: null
+        session_storage: cookie
+        session_store_metadata: false
+        ssl_verify: false
+        timeout: 10000
+        token_cache_key_include_scope: false
+        token_endpoint: null
+        token_endpoint_auth_method: null
+        token_exchange_endpoint: null
+        token_headers_client: null
+        token_headers_grants: null
+        token_headers_names: null
+        token_headers_prefix: null
+        token_headers_replay: null
+        token_headers_values: null
+        token_post_args_client: null
+        token_post_args_names: null
+        token_post_args_values: null
+        unauthorized_destroy_session: true
+        unauthorized_error_message: Unauthorized
+        unauthorized_redirect_uri: null
+        unexpected_redirect_uri: null
+        upstream_access_token_header: authorization:bearer
+        upstream_access_token_jwk_header: null
+        upstream_headers_claims:
+        - sub
+        upstream_headers_names:
+        - x-kong-username
+        upstream_id_token_header: null
+        upstream_id_token_jwk_header: null
+        upstream_introspection_header: null
+        upstream_introspection_jwt_header: null
+        upstream_refresh_token_header: null
+        upstream_session_id_header: null
+        upstream_user_info_header: null
+        upstream_user_info_jwt_header: null
+        userinfo_accept: application/json
+        userinfo_endpoint: null
+        userinfo_headers_client: null
+        userinfo_headers_names: null
+        userinfo_headers_values: null
+        userinfo_query_args_client: null
+        userinfo_query_args_names: null
+        userinfo_query_args_values: null
+        using_pseudo_issuer: false
+        verify_claims: true
+        verify_nonce: true
+        verify_parameters: false
+        verify_signature: false
+      enabled: true
+      name: openid-connect
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - oidc-okta
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - oidc-okta
+  - https_redirect_status_code: 426
+    name: oidc-okta-client-creds
+    path_handling: v0
+    paths:
+    - /okta-client-creds
+    plugins:
+    - config:
+        anonymous: null
+        audience: null
+        audience_claim:
+        - aud
+        audience_required: null
+        auth_methods:
+        - client_credentials
+        authenticated_groups_claim: null
+        authorization_cookie_domain: null
+        authorization_cookie_http_only: true
+        authorization_cookie_name: authorization
+        authorization_cookie_path: /
+        authorization_cookie_same_site: Default
+        authorization_cookie_secure: null
+        authorization_endpoint: null
+        authorization_query_args_client: null
+        authorization_query_args_names: null
+        authorization_query_args_values: null
+        authorization_rolling_timeout: 600
+        bearer_token_cookie_name: null
+        bearer_token_param_type:
+        - header
+        - query
+        - body
+        by_username_ignore_case: false
+        cache_introspection: true
+        cache_token_exchange: true
+        cache_tokens: true
+        cache_tokens_salt: null
+        cache_ttl: 3600
+        cache_ttl_max: null
+        cache_ttl_min: null
+        cache_ttl_neg: null
+        cache_ttl_resurrect: null
+        cache_user_info: true
+        client_alg: null
+        client_arg: client_id
+        client_auth: null
+        client_credentials_param_type:
+        - header
+        - query
+        - body
+        client_id:
+        - '{vault://gcp/kong-okta-sandbox-oidc-clientid}'
+        client_jwk: null
+        client_secret:
+        - '{vault://gcp/kong-okta-sandbox-oidc-clientsecret}'
+        consumer_by:
+        - username
+        - custom_id
+        consumer_claim: null
+        consumer_optional: false
+        credential_claim:
+        - sub
+        disable_session: null
+        discovery_headers_names: null
+        discovery_headers_values: null
+        display_errors: true
+        domains: null
+        downstream_access_token_header: null
+        downstream_access_token_jwk_header: null
+        downstream_headers_claims: null
+        downstream_headers_names: null
+        downstream_id_token_header: null
+        downstream_id_token_jwk_header: null
+        downstream_introspection_header: null
+        downstream_introspection_jwt_header: null
+        downstream_refresh_token_header: null
+        downstream_session_id_header: null
+        downstream_user_info_header: null
+        downstream_user_info_jwt_header: null
+        enable_hs_signatures: false
+        end_session_endpoint: null
+        expose_error_code: true
+        extra_jwks_uris: null
+        forbidden_destroy_session: true
+        forbidden_error_message: Forbidden
+        forbidden_redirect_uri: null
+        groups_claim:
+        - groups
+        groups_required: null
+        hide_credentials: false
+        http_proxy: null
+        http_proxy_authorization: null
+        http_version: 1.1
+        https_proxy: null
+        https_proxy_authorization: null
+        id_token_param_name: null
+        id_token_param_type:
+        - header
+        - query
+        - body
+        ignore_signature: []
+        introspect_jwt_tokens: false
+        introspection_accept: application/json
+        introspection_check_active: true
+        introspection_endpoint: null
+        introspection_endpoint_auth_method: null
+        introspection_headers_client: null
+        introspection_headers_names: null
+        introspection_headers_values: null
+        introspection_hint: access_token
+        introspection_post_args_client: null
+        introspection_post_args_names: null
+        introspection_post_args_values: null
+        introspection_token_param_name: token
+        issuer: https://kong-sandbox.oktapreview.com/oauth2/default
+        issuers_allowed: null
+        jwt_session_claim: sid
+        jwt_session_cookie: null
+        keepalive: true
+        leeway: 0
+        login_action: upstream
+        login_methods:
+        - authorization_code
+        login_redirect_mode: fragment
+        login_redirect_uri: null
+        login_tokens:
+        - id_token
+        logout_methods:
+        - POST
+        - DELETE
+        logout_post_arg: null
+        logout_query_arg: null
+        logout_redirect_uri: null
+        logout_revoke: false
+        logout_revoke_access_token: true
+        logout_revoke_refresh_token: true
+        logout_uri_suffix: null
+        max_age: null
+        no_proxy: null
+        password_param_type:
+        - header
+        - query
+        - body
+        preserve_query_args: false
+        proof_of_possession_auth_methods_validation: true
+        proof_of_possession_mtls: "off"
+        redirect_uri: null
+        rediscovery_lifetime: 30
+        refresh_token_param_name: null
+        refresh_token_param_type:
+        - header
+        - query
+        - body
+        refresh_tokens: true
+        resolve_distributed_claims: false
+        response_mode: query
+        response_type:
+        - code
+        reverify: false
+        revocation_endpoint: null
+        revocation_endpoint_auth_method: null
+        revocation_token_param_name: token
+        roles_claim:
+        - roles
+        roles_required: null
+        run_on_preflight: true
+        scopes:
+        - se_scope
+        scopes_claim:
+        - scope
+        scopes_required: null
+        search_user_info: false
+        session_absolute_timeout: 86400
+        session_audience: default
+        session_cookie_domain: null
+        session_cookie_http_only: true
+        session_cookie_name: session
+        session_cookie_path: /
+        session_cookie_same_site: Lax
+        session_cookie_secure: null
+        session_enforce_same_subject: false
+        session_hash_storage_key: false
+        session_hash_subject: false
+        session_idling_timeout: 900
+        session_memcached_host: 127.0.0.1
+        session_memcached_port: 11211
+        session_memcached_prefix: null
+        session_memcached_socket: null
+        session_redis_cluster_max_redirections: null
+        session_redis_cluster_nodes: null
+        session_redis_connect_timeout: null
+        session_redis_host: 127.0.0.1
+        session_redis_password: null
+        session_redis_port: 6379
+        session_redis_prefix: null
+        session_redis_read_timeout: null
+        session_redis_send_timeout: null
+        session_redis_server_name: null
+        session_redis_socket: null
+        session_redis_ssl: false
+        session_redis_ssl_verify: false
+        session_redis_username: null
+        session_remember: false
+        session_remember_absolute_timeout: 2592000
+        session_remember_cookie_name: remember
+        session_remember_rolling_timeout: 604800
+        session_request_headers: null
+        session_response_headers: null
+        session_rolling_timeout: 3600
+        session_secret: null
+        session_storage: cookie
+        session_store_metadata: false
+        ssl_verify: false
+        timeout: 10000
+        token_cache_key_include_scope: false
+        token_endpoint: null
+        token_endpoint_auth_method: null
+        token_exchange_endpoint: null
+        token_headers_client: null
+        token_headers_grants: null
+        token_headers_names: null
+        token_headers_prefix: null
+        token_headers_replay: null
+        token_headers_values: null
+        token_post_args_client: null
+        token_post_args_names: null
+        token_post_args_values: null
+        unauthorized_destroy_session: true
+        unauthorized_error_message: Unauthorized
+        unauthorized_redirect_uri: null
+        unexpected_redirect_uri: null
+        upstream_access_token_header: authorization:bearer
+        upstream_access_token_jwk_header: null
+        upstream_headers_claims: null
+        upstream_headers_names: null
+        upstream_id_token_header: null
+        upstream_id_token_jwk_header: null
+        upstream_introspection_header: null
+        upstream_introspection_jwt_header: null
+        upstream_refresh_token_header: null
+        upstream_session_id_header: null
+        upstream_user_info_header: null
+        upstream_user_info_jwt_header: null
+        userinfo_accept: application/json
+        userinfo_endpoint: null
+        userinfo_headers_client: null
+        userinfo_headers_names: null
+        userinfo_headers_values: null
+        userinfo_query_args_client: null
+        userinfo_query_args_names: null
+        userinfo_query_args_values: null
+        using_pseudo_issuer: false
+        verify_claims: true
+        verify_nonce: true
+        verify_parameters: false
+        verify_signature: false
+      enabled: true
+      name: openid-connect
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - oidc-okta
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - oidc-okta
+  tags:
+  - oidc-okta
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: httpbin.se-kong-mesh.svc
+  name: httpbin-online
+  path: /anything
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - headers:
+      online:
+      - "true"
+    https_redirect_status_code: 426
+    name: route-by-header1
+    path_handling: v0
+    paths:
+    - /routeByHeader
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  - headers:
+      version:
+      - v2
+    https_redirect_status_code: 426
+    name: route-by-header2
+    path_handling: v0
+    paths:
+    - /routeByHeader
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kong-mesh-control-plane.kong-mesh-system.5681.svc
+  name: kong-mesh-system.kong-mesh-control-plane.5681
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - kong-mesh-cp-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: kong-mesh-system.kong-mesh-control-plane.kong-mesh-control-plane.kong-mesh-cp-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.5681
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - k8s-name:kong-mesh-control-plane
+    - k8s-namespace:kong-mesh-system
+    - k8s-kind:Ingress
+    - k8s-uid:7f593bf7-09e4-4615-953f-6fe07159a21e
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:kong-mesh-control-plane
+  - k8s-namespace:kong-mesh-system
+  - k8s-kind:Service
+  - k8s-uid:bd484f65-3ea0-42dd-9ecf-080c510af854
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: grafana.mesh-observability.80.svc
+  name: mesh-observability.grafana.80
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - grafana-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: mesh-observability.grafana.grafana.grafana-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.80
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:grafana
+    - k8s-namespace:mesh-observability
+    - k8s-kind:Ingress
+    - k8s-uid:cb80d7e5-c49b-464b-8132-2fc0b5855d53
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:grafana
+  - k8s-namespace:mesh-observability
+  - k8s-kind:Service
+  - k8s-uid:f8e43995-dc80-407c-ba61-aabc1a0af134
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: jaeger-query.mesh-observability.80.svc
+  name: mesh-observability.jaeger-query.80
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - tracing-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: mesh-observability.jaeger.jaeger-query.tracing-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.80
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:jaeger
+    - k8s-namespace:mesh-observability
+    - k8s-kind:Ingress
+    - k8s-uid:07efd955-2579-4987-8235-8d394a2a0aef
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:jaeger-query
+  - k8s-namespace:mesh-observability
+  - k8s-kind:Service
+  - k8s-uid:b5dadddf-97c0-4560-83d3-60739348da28
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: mockbin.se-kong-mesh.svc
+  name: mockbin
+  path: /request
+  port: 3000
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: mockbin
+    path_handling: v0
+    paths:
+    - /echo
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: apollo-service.se-kong-mesh.4000.svc
+  name: se-kong-mesh.apollo-service.4000
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: se-kong-mesh.apollo-rest.apollo-service.kong-sales-engineering.com.4000
+    path_handling: v0
+    paths:
+    - /
+    plugins:
+    - config:
+        graphql_server_path: /graphql
+      enabled: true
+      name: degraphql
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      tags:
+      - k8s-name:get-blog-degraphql
+      - k8s-namespace:se-kong-mesh
+      - k8s-kind:KongPlugin
+      - k8s-uid:a8cbc25a-bc03-4d19-8c7a-94bce1c6f8f7
+      - k8s-group:configuration.konghq.com
+      - k8s-version:v1
+      - managed-by-ingress-controller
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:apollo-rest
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:8e2764f7-8439-47c3-9a82-42bf0a2475d4
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:apollo-service
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:244a483f-2256-42b6-b5e9-d366d96f16a8
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: blog-service.se-kong-mesh.3000.svc
+  name: se-kong-mesh.blog-service.3000
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: se-kong-mesh.apollo.blog-service..3000
+    path_handling: v0
+    paths:
+    - /reset
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:apollo
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:53edd9fc-b743-4360-9c32-7485144c4793
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:blog-service
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:15727f8e-75e1-4c3c-95a1-841fa5856154
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kong-mesh-demo-cp-kong-admin.se-kong-mesh.8444.svc
+  name: se-kong-mesh.kong-mesh-demo-cp-kong-admin.8444
+  path: /
+  port: 80
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - admin-api-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: se-kong-mesh.kong-mesh-demo-cp-kong-admin.kong-mesh-demo-cp-kong-admin.admin-api-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.8444
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:kong-mesh-demo-cp-kong-admin
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:ab3180e0-36f0-4bd5-9402-0557728dd608
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-admin
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:8e9169aa-c5fd-4cb9-bf6c-883d5f1cdca1
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kong-mesh-demo-cp-kong-manager.se-kong-mesh.8445.svc
+  name: se-kong-mesh.kong-mesh-demo-cp-kong-manager.8445
+  path: /
+  port: 80
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - manager-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: se-kong-mesh.kong-mesh-demo-cp-kong-manager.kong-mesh-demo-cp-kong-manager.manager-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.8445
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:kong-mesh-demo-cp-kong-manager
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:c31c37b5-99d4-43e1-b1d4-802711ecc31e
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-manager
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:0eec2808-db82-4409-be1e-cec7a9b54733
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kong-mesh-demo-cp-kong-portal.se-kong-mesh.8446.svc
+  name: se-kong-mesh.kong-mesh-demo-cp-kong-portal.8446
+  path: /
+  port: 80
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - portal-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: se-kong-mesh.kong-mesh-demo-cp-kong-portal.kong-mesh-demo-cp-kong-portal.portal-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.8446
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:kong-mesh-demo-cp-kong-portal
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:92553f0a-0631-44b7-ab8a-33cdd424fbb1
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-portal
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:de45f48c-2629-4ddb-a086-03512701c9cf
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: kong-mesh-demo-cp-kong-portalapi.se-kong-mesh.8447.svc
+  name: se-kong-mesh.kong-mesh-demo-cp-kong-portalapi.8447
+  path: /
+  port: 80
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - hosts:
+    - portalapi-dlamotta-standalone-pmjonobp.kong-sales-engineering.com
+    https_redirect_status_code: 426
+    name: se-kong-mesh.kong-mesh-demo-cp-kong-portalapi.kong-mesh-demo-cp-kong-portalapi.portalapi-dlamotta-standalone-pmjonobp.kong-sales-engineering.com.8447
+    path_handling: v0
+    paths:
+    - /
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:kong-mesh-demo-cp-kong-portalapi
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:3a1d2e6f-e556-4e7f-8c16-2140a5a710f0
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-portalapi
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:1c1a6c4f-e87a-4729-8a4a-4c32904b9593
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: nlp-service.se-kong-mesh.3000.svc
+  name: se-kong-mesh.nlp-service.3000
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: se-kong-mesh.apollo.nlp-service..3000
+    path_handling: v0
+    paths:
+    - /nlp
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:apollo
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:53edd9fc-b743-4360-9c32-7485144c4793
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:nlp-service
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:42df0afa-3683-4758-8759-073121962c1f
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: users.se-kong-mesh.8080.svc
+  name: se-kong-mesh.users.8080
+  path: /
+  port: 80
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: se-kong-mesh.apollo.users..8080
+    path_handling: v0
+    paths:
+    - /users
+    preserve_host: true
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: false
+    tags:
+    - k8s-name:apollo
+    - k8s-namespace:se-kong-mesh
+    - k8s-kind:Ingress
+    - k8s-uid:53edd9fc-b743-4360-9c32-7485144c4793
+    - k8s-group:networking.k8s.io
+    - k8s-version:v1
+    - managed-by-ingress-controller
+  tags:
+  - k8s-name:users
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:ad1aec5e-13fb-4c94-a11a-b815a9894e74
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: echo.websocket.org
+  name: websocket-echo
+  path: /
+  port: 443
+  protocol: wss
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: websocket-wss
+    path_handling: v0
+    paths:
+    - /socket-wss
+    preserve_host: false
+    protocols:
+    - wss
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+    tags:
+    - managed-by-deck
+    - se-demo
+  tags:
+  - managed-by-deck
+  - se-demo
+  write_timeout: 60000
+upstreams:
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: apollo-service.se-kong-mesh.4000.svc
+  slots: 10000
+  tags:
+  - k8s-name:apollo-service
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:244a483f-2256-42b6-b5e9-d366d96f16a8
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: apollo-service.se-kong-mesh.svc:4000
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: blog-service.se-kong-mesh.3000.svc
+  slots: 10000
+  tags:
+  - k8s-name:blog-service
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:15727f8e-75e1-4c3c-95a1-841fa5856154
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: blog-service.se-kong-mesh.svc:3000
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: grafana.mesh-observability.80.svc
+  slots: 10000
+  tags:
+  - k8s-name:grafana
+  - k8s-namespace:mesh-observability
+  - k8s-kind:Service
+  - k8s-uid:f8e43995-dc80-407c-ba61-aabc1a0af134
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: grafana.mesh-observability.svc:80
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: jaeger-query.mesh-observability.80.svc
+  slots: 10000
+  tags:
+  - k8s-name:jaeger-query
+  - k8s-namespace:mesh-observability
+  - k8s-kind:Service
+  - k8s-uid:b5dadddf-97c0-4560-83d3-60739348da28
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: jaeger-query.mesh-observability.svc:80
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: kong-mesh-control-plane.kong-mesh-system.5681.svc
+  slots: 10000
+  tags:
+  - k8s-name:kong-mesh-control-plane
+  - k8s-namespace:kong-mesh-system
+  - k8s-kind:Service
+  - k8s-uid:bd484f65-3ea0-42dd-9ecf-080c510af854
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: 10.8.2.11:5681
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: kong-mesh-demo-cp-kong-admin.se-kong-mesh.8444.svc
+  slots: 10000
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-admin
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:8e9169aa-c5fd-4cb9-bf6c-883d5f1cdca1
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: kong-mesh-demo-cp-kong-admin.se-kong-mesh.svc:8444
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: kong-mesh-demo-cp-kong-manager.se-kong-mesh.8445.svc
+  slots: 10000
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-manager
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:0eec2808-db82-4409-be1e-cec7a9b54733
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: kong-mesh-demo-cp-kong-manager.se-kong-mesh.svc:8445
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: kong-mesh-demo-cp-kong-portal.se-kong-mesh.8446.svc
+  slots: 10000
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-portal
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:de45f48c-2629-4ddb-a086-03512701c9cf
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: kong-mesh-demo-cp-kong-portal.se-kong-mesh.svc:8446
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: kong-mesh-demo-cp-kong-portalapi.se-kong-mesh.8447.svc
+  slots: 10000
+  tags:
+  - k8s-name:kong-mesh-demo-cp-kong-portalapi
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:1c1a6c4f-e87a-4729-8a4a-4c32904b9593
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: kong-mesh-demo-cp-kong-portalapi.se-kong-mesh.svc:8447
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: nlp-service.se-kong-mesh.3000.svc
+  slots: 10000
+  tags:
+  - k8s-name:nlp-service
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:42df0afa-3683-4758-8759-073121962c1f
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: nlp-service.se-kong-mesh.svc:3000
+    weight: 100
+  use_srv_name: false
+- algorithm: round-robin
+  hash_fallback: none
+  hash_on: none
+  hash_on_cookie_path: /
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: /
+      https_verify_certificate: true
+      timeout: 1
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 404
+        - 500
+        - 501
+        - 502
+        - 503
+        - 504
+        - 505
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        - 201
+        - 202
+        - 203
+        - 204
+        - 205
+        - 206
+        - 207
+        - 208
+        - 226
+        - 300
+        - 301
+        - 302
+        - 303
+        - 304
+        - 305
+        - 306
+        - 307
+        - 308
+        successes: 0
+      type: http
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 500
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+    threshold: 0
+  name: users.se-kong-mesh.8080.svc
+  slots: 10000
+  tags:
+  - k8s-name:users
+  - k8s-namespace:se-kong-mesh
+  - k8s-kind:Service
+  - k8s-uid:ad1aec5e-13fb-4c94-a11a-b815a9894e74
+  - k8s-version:v1
+  - managed-by-ingress-controller
+  targets:
+  - tags:
+    - managed-by-ingress-controller
+    target: users.se-kong-mesh.svc:8080
+    weight: 100
+  use_srv_name: false
