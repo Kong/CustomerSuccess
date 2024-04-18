@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KICK_VERSION="1.1.0"
+KICK_VERSION="1.1.1"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
