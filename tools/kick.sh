@@ -293,8 +293,8 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     token=$(jq -r '.environments.['$i'].admin_token' $INPUT_FILE)
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-      printf " KONG CLUSTER: $env\n";
-      printf " ADMIN HOST  : $host\n";
+      printf " KONG ENVIRONMENT: $env\n";
+      printf " ADMIN API       : $host\n";
     fi
 
     # Count the unique services
@@ -311,7 +311,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     if [ -n "$workspaces" ]; then
       # Iterate over each workspace and add services to the array
-      total_services_output+=$(printf 'Workspace\tGateway Svcs\tDiscrete Svcs\n';)
+      total_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
       for workspace in $workspaces; do
         total_workspaces=$(($total_workspaces + 1))
         workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace" "$MASTER" "$MINIONS")
@@ -352,8 +352,8 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     all_gateway_services_count=$(echo "$all_gateway_services" | jq 'length')
     all_discrete_services_count=$(echo "$all_gateway_services" | jq 'unique | length')
 
-    summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Clusters" "Total Workspaces" "Gateway Svcs" "Discrete Svcs")
-    summary_output+=$(printf '\n%d\t%d\t%d\t%d (x-cluster)\n'  $ENV_COUNT $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
+    summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Environments" "Total Workspaces" "Gateway Services" "Discrete Services")
+    summary_output+=$(printf '\n%d\t%d\t%d\t%d (x-environment)\n'  $ENV_COUNT $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
 
     # Write license output to file, including discrete services information
     license=$(fetch_license_report $env $host $token)
