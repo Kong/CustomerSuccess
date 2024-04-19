@@ -3,14 +3,9 @@
   [
     {
       "environment": "prod",
-      "admin_host": "https://admin-api-dlamotta-standalone-lmtlnibh.kong-sales-engineering.com",
+      "admin_host": "https://admin-api-dlamotta-standalone-iklpswmt.kong-sales-engineering.com",
       "admin_token": "kong_admin"
-    },
-    {
-      "environment": "dr",
-      "admin_host": "https://admin-api-dlamotta-standalone-lmtlnibh.kong-sales-engineering.com",
-      "admin_token": "kong_admin"
-    }    
+    }
   ],
   "discrete": {
     "master": "prod",

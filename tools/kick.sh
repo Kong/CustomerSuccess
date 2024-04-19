@@ -160,7 +160,7 @@ function fetch_from_admin_api() {
   local token="$2"
   local path="$3"
 
-  if output=$(curl -s -X GET "${host}${path}" -H "Kong-Admin-Token: ${token}"); then
+  if output=$(curl -s -X GET "${host}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
     response="$output"
   else
     echo "Error: Failed to fetch ${path} from ${host}" >&2
@@ -181,20 +181,50 @@ function fetch_license_report() {
 }
 
 function fetch_workspaces() {
+  local size=1000
   local host="$1"
   local token="$2"
-  local path="/workspaces"
+  local path="/workspaces?size=$size"
 
-  echo $(fetch_from_admin_api $host $token $path) | jq -r '.data[].name' | sort
+  # get the first batch of $size workspaces
+  local raw=$(fetch_from_admin_api $host $token $path | jq)
+  local workspaces=$(echo $raw | jq -r '.data[].name')
+
+  # we need to make sure we check all the "pages" in case there are more than 1000 workspaces,
+  local offset=$(echo $raw | jq -r '.next // empty')
+
+  # let's grab $size workspaces at a time until we run out
+  while [[ -n "${offset}" ]]; do
+    raw=$(fetch_from_admin_api $host $token $offset | jq)
+    workspaces="$workspaces $(echo $raw | jq -r '.data[].name')"
+    offset=$(echo $raw | jq -r '.next // empty')
+  done  
+
+  echo $workspaces | xargs -n1 | sort | xargs
 }
 
 # Get a list of services in the workspace
 function fetch_workspace_services() {
+  local size=1000
   local host="$1"
   local token="$2"
-  local path="/$3/services"
+  local path="/$3/services?size=$size"
 
-  local services=$(fetch_from_admin_api $host $token $path | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+
+  # get the first batch of $size workspaces
+  local raw=$(fetch_from_admin_api $host $token $path | jq)
+  local services=$(echo $raw | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+
+  # we need to make sure we check all the "pages" in case there are more than 1000 workspaces,
+  local offset=$(echo $raw | jq -r '.next // empty')
+
+  # let's grab $size workspaces at a time until we run out
+  while [[ -n "${offset}" ]]; do
+    raw=$(fetch_from_admin_api $host $token $offset | jq)
+    nextBatch=$(echo $raw | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+    services=$(jq --argjson arr1 "$services" --argjson arr2 "$nextBatch" -n '$arr1 + $arr2')
+    offset=$(echo $raw | jq -r '.next // empty')
+  done
 
   if [[ ! -z "$4" && ! -z "$5" ]]; then    
     services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= sub($minions;$master)')
@@ -306,7 +336,6 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     # Fetch list of workspaces
     workspaces=$(fetch_workspaces "$host" "$token")
-
     kick_json+=$(printf '{ "name": "%s", "host": "%s", "workspaces": [' $env $host)
 
     if [ -n "$workspaces" ]; then
