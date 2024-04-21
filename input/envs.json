@@ -3,8 +3,13 @@
   [
     {
       "environment": "prod",
-      "admin_host": "https://admin-api-dlamotta-standalone-iklpswmt.kong-sales-engineering.com",
-      "admin_token": "kong_admin"
+      "admin_host": "https://prod_admin_api_host:8001",
+      "admin_token": "foobar"
+    },
+    {
+      "environment": "dr",
+      "admin_host": "https://dr_admin_api_host:8001",
+      "admin_token": "foobar"
     }
   ],
   "discrete": {

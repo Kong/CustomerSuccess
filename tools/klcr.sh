@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KICK_VERSION="1.1.1"
+KLCR_VERSION="2.0"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -123,7 +123,7 @@ Options:
   -i, --input-file FILE    Details of every Kong environment.
   -o, --output-dir DIR     Name of the directory where all license reports will be saved.
   -s, --suppress           Suppress printing to standard output.
-  -v, --version            Shows the version of KICK.
+  -v, --version            Shows the version of KLCR.
   -h, --help               Display this help message.
 
 Example:
@@ -138,7 +138,7 @@ Description:
   https://stedolan.github.io/jq/
 
 Disclaimr:
-  KICK is NOT a Kong product, nor is it supported by Kong.
+  KLCR is NOT a Kong product, nor is it supported by Kong.
 
 EOF
 }
@@ -146,10 +146,10 @@ EOF
 function print_version() {
   cat <<EOF
 
-Kong Interactive Consumption Kollector (KICK)
-Version $KICK_VERSION
+Kong License Consumption Report (KLCR)
+Version $KLCR_VERSION
 
-KICK is NOT a Kong product, nor is it supported by Kong.
+KLCR is NOT a Kong product, nor is it supported by Kong.
 
 EOF
 }
@@ -209,7 +209,6 @@ function fetch_workspace_services() {
   local host="$1"
   local token="$2"
   local path="/$3/services?size=$size"
-
 
   # get the first batch of $size workspaces
   local raw=$(fetch_from_admin_api $host $token $path | jq)
@@ -314,7 +313,7 @@ MINIONS=$(jq -r '.discrete.minions' $INPUT_FILE)
 all_gateway_services=[]
 total_workspaces=0
 
-kick_json=$(printf '{"kick_version":"%s", "kong_environments": %d, "kong": [' $KICK_VERSION $ENV_COUNT)
+klcr_json=$(printf '{"klcr_version":"%s", "kong_environments": %d, "kong": [' $KLCR_VERSION $ENV_COUNT)
 
 for ((i=0; $i<$ENV_COUNT; i++)); do
     # A little clunky but this works
@@ -336,7 +335,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     # Fetch list of workspaces
     workspaces=$(fetch_workspaces "$host" "$token")
-    kick_json+=$(printf '{ "name": "%s", "host": "%s", "workspaces": [' $env $host)
+    klcr_json+=$(printf '{ "environment": "%s", "host": "%s", "workspaces": [' $env $host)
 
     if [ -n "$workspaces" ]; then
       # Iterate over each workspace and add services to the array
@@ -352,22 +351,22 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
         total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
 
-        kick_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' $workspace $services_count $discrete_count)
+        klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' $workspace $services_count $discrete_count)
       done
 
       # remove the trailing comma (,) from the json constructed above
-      kick_json=$(echo $kick_json | sed 's/.$//')
+      klcr_json=$(echo $klcr_json | sed 's/.$//')
     else
       echo "No workspaces to process."
     fi
 
     # close the json array
-    kick_json+="], "
+    klcr_json+="], "
     total_services_count=$(echo "$cp_services" | jq 'length')
     total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
 
     # let's add totals per workspace
-    kick_json+=$(printf '"workspaces_services": %d, "workspaces_discrete": %d},' $total_services_count $total_discrete_cross_workspace_count)
+    klcr_json+=$(printf '"workspaces_services": %d, "workspaces_discrete": %d},' $total_services_count $total_discrete_cross_workspace_count)
 
     if [ -n "$total_services_output" ]; then
       total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
@@ -393,7 +392,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     fi
 done
 
-kick_json=$(echo $kick_json | sed 's/.$//')
+klcr_json=$(echo $klcr_json | sed 's/.$//')
 
 if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
   printf " SUMMARY\n"
@@ -401,7 +400,7 @@ if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
   printf "\n"
 fi
 
-kick_json+=$(printf '], "total_workspaces": %d, "total_gateway_services": %d, "total_discrete_services": %d }' $total_workspaces $all_gateway_services_count $all_discrete_services_count)
+klcr_json+=$(printf '], "total_workspaces": %d, "total_gateway_services": %d, "total_discrete_services": %d }' $total_workspaces $all_gateway_services_count $all_discrete_services_count)
 
-# store kick information in its own JSON file
-echo $kick_json > "$OUTPUT_DIR/kick.json"
+# store klcr information in its own JSON file
+echo $klcr_json > "$OUTPUT_DIR/klcr.json"
