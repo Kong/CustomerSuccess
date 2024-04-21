@@ -91,6 +91,7 @@ That it is. Assuming you used the example above, the output you will see on your
 
     KONG ENVIRONMENT: prod
     ADMIN API       : https://prod_admin_api_host:8001
+    STATUS          : HTTP/2 200
     ┌────────────────┬──────────────────┬───────────────────┐
     │Workspace       │Gateway Services  │Discrete Services  │
     ├────────────────┼──────────────────┼───────────────────┤
@@ -106,6 +107,7 @@ That it is. Assuming you used the example above, the output you will see on your
 
     KONG ENVIRONMENT: dr
     ADMIN API       : https://dr_admin_api_host:8001
+    STATUS          : HTTP/2 200
     ┌────────────────┬──────────────────┬───────────────────┐
     │Workspace       │Gateway Services  │Discrete Services  │
     ├────────────────┼──────────────────┼───────────────────┤
