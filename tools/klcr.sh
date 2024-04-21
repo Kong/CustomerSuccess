@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KLCR_VERSION="2.0"
+KLCR_VERSION="2.1.0"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -193,8 +193,22 @@ function fetch_gateway_status() {
 
   status=$(fetch_from_admin_api $host $token $path $flag | head -n 1)
 
+  if [[ -n $(echo $status | grep 200) ]]; then
+    status="Healthy"
+  fi
+
   # remove the trailing newline first, and then the white space
-  echo "${status//[$'\t\r\n']}" | sed 's/.$//'
+  echo "${status//[$'\t\r\n']}"
+}
+
+function fetch_gateway_version() {
+  local host="$1"
+  local token="$2"
+  local path="/default/kong"
+
+  version=$(fetch_from_admin_api $host $token $path | jq -r '.version')
+
+  echo $version
 }
 
 function fetch_workspaces() {
@@ -247,6 +261,23 @@ function fetch_workspace_services() {
   fi
 
   echo $services
+}
+
+# Dev portal status in a workspace
+function fetch_workspace_dev_portal_status() {
+  local host="$1"
+  local token="$2"
+  local path="/$3/default/kong"
+
+  local portal=$(fetch_from_admin_api $host $token $path | jq '.configuration.portal')
+
+  if [[ "true" == "${portal}" ]]; then
+    portal="Enabled"
+  else
+    portal="Disabled"
+  fi
+
+  echo $portal
 }
 
 # Get CLI options
@@ -339,11 +370,15 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     token=$(jq -r '.environments.['$i'].admin_token' $INPUT_FILE)
 
     status=$(fetch_gateway_status "$host" "$token")
+    version=$(fetch_gateway_version "$host" "$token")
+    dev_portal=$(fetch_workspace_dev_portal_status "$host" "$token")
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-      printf " KONG ENVIRONMENT: $env\n";
-      printf " ADMIN API       : $host\n";
-      printf " STATUS          : $status\n";
+      printf " Environment   : $env\n";
+      printf " Kong Version  : $version\n";
+      printf " Admin API     : $host\n";
+      printf " Gateway Status: $status\n";
+      printf " Dev Portal    : $dev_portal\n";
     fi
 
     # Count the unique services
@@ -355,11 +390,13 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     # Fetch list of workspaces
     workspaces=$(fetch_workspaces "$host" "$token")
-    klcr_json+=$(printf '{ "environment": "%s", "status": "%s", "host": "%s", "workspaces": [' "$env" "$status" "$host")
+    klcr_json+=$(printf '{ "environment": "%s", "version": "%s", "admin_api": "%s", "status": "%s", "dev_portal": "%s", "workspaces": [' "$env" "$version" "$host" "$status" "$dev_portal" )
 
     if [ -n "$workspaces" ]; then
       # Iterate over each workspace and add services to the array
       total_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
+      dev_portal_count=0
+
       for workspace in $workspaces; do
         total_workspaces=$(($total_workspaces + 1))
         workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace" "$MASTER" "$MINIONS")
@@ -386,7 +423,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
 
     # let's add totals per workspace
-    klcr_json+=$(printf '"workspaces_services": %d, "workspaces_discrete": %d},' $total_services_count $total_discrete_cross_workspace_count)
+    klcr_json+=$(printf '"workspaces_services": %d, "workspaces_discrete": %d },' $total_services_count $total_discrete_cross_workspace_count )
 
     if [ -n "$total_services_output" ]; then
       total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
