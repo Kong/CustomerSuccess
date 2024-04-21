@@ -159,8 +159,13 @@ function fetch_from_admin_api() {
   local host="$1"
   local token="$2"
   local path="$3"
+  local flag=""
 
-  if output=$(curl -s -X GET "${host}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
+  if [[ -n "$4" ]]; then
+    flag="$4"
+  fi
+
+  if output=$(curl -s $flag -X GET "${host}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
     response="$output"
   else
     echo "Error: Failed to fetch ${path} from ${host}" >&2
@@ -178,6 +183,18 @@ function fetch_license_report() {
   local path="/license/report"
 
   echo $(fetch_from_admin_api $host $token $path) | jq -s 'add'
+}
+
+function fetch_gateway_status() {
+  local host="$1"
+  local token="$2"
+  local path="/status"
+  local flag="-I"
+
+  status=$(fetch_from_admin_api $host $token $path $flag | head -n 1)
+
+  # remove the trailing newline first, and then the white space
+  echo "${status//[$'\t\r\n']}" | sed 's/.$//'
 }
 
 function fetch_workspaces() {
@@ -321,9 +338,12 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     host=$(jq -r '.environments.['$i'].admin_host' $INPUT_FILE)
     token=$(jq -r '.environments.['$i'].admin_token' $INPUT_FILE)
 
+    status=$(fetch_gateway_status "$host" "$token")
+
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
       printf " KONG ENVIRONMENT: $env\n";
       printf " ADMIN API       : $host\n";
+      printf " STATUS          : $status\n";
     fi
 
     # Count the unique services
@@ -335,7 +355,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
     # Fetch list of workspaces
     workspaces=$(fetch_workspaces "$host" "$token")
-    klcr_json+=$(printf '{ "environment": "%s", "host": "%s", "workspaces": [' $env $host)
+    klcr_json+=$(printf '{ "environment": "%s", "status": "%s", "host": "%s", "workspaces": [' "$env" "$status" "$host")
 
     if [ -n "$workspaces" ]; then
       # Iterate over each workspace and add services to the array
@@ -351,7 +371,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
 
         total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
 
-        klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' $workspace $services_count $discrete_count)
+        klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' "$workspace" $services_count $discrete_count)
       done
 
       # remove the trailing comma (,) from the json constructed above
