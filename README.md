@@ -129,7 +129,7 @@ That it is. Assuming you used the example above, the output you will see on your
     ┌───────────────────┬──────────────────┬──────────────────┬────────────────────┐
     │Kong Environments  │Total Workspaces  │Gateway Services  │Discrete Services   │
     ├───────────────────┼──────────────────┼──────────────────┼────────────────────┤
-    │2                  │12                │40                │18 (x-environment)  │
+    │2                  │12                │48                │19 (x-environment)  │
     └───────────────────┴──────────────────┴──────────────────┴────────────────────┘
 
 The keen observer will notice that in this example the number of discrete services is 19. This is the exact result expected, as dev and prod Kong clusters are identical. KLCR is aggregating the number of environments (2), the number of workspaces (6x2), the number of gateway services (24x2), and the number of discrete services (**19**). It is additionally worth mentioning that KLCR shows the number of discrete services across an individual Kong environment's workspaces. We can see above that the *default* workspace has 19 gateway services, but out of those only 17 are discrete. The *discrete* workspace has the `https://[dev|qa|stage|prod].catfact.ninja/fact` service definitions, which count as 4 gateway services, but only as 1 discrete service.
