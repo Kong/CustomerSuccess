@@ -57,10 +57,10 @@ New as of KLCR 1.1, there is a section where you are able to provide "discretene
     ┌──────────────────────┬──────────────────────────────────┐
     │Service Name          │Backend                           │
     ├──────────────────────┼──────────────────────────────────┤
-    │dev-catfact-service   │ https://dev.catfact.ninja/fact   |
-    │qa-catfact-service    | https://qa.catfact.ninja/fact    │
-    │stage-catfact-service | https://stage.catfact.ninja/fact |
-    |prod-catfact-service  | https://prod.catfact.ninja/fact  |
+    │dev-catfact-service   │ https://dev.catfact.ninja/fact   │
+    │qa-catfact-service    │ https://qa.catfact.ninja/fact    │
+    │stage-catfact-service │ https://stage.catfact.ninja/fact │
+    │prod-catfact-service  │ https://prod.catfact.ninja/fact  │
     └──────────────────────┴──────────────────────────────────┘    
 
 The four services above, irrespective of the Kong control planes (i.e., environments) where they are located, will be counted as 1 discrete service by KLCR.
