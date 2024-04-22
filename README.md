@@ -1,6 +1,6 @@
 # Kong Customer Success Tools
 
-Welcome to the tools section of the Kong Customer Success team. As of this moment, the toolbox contains a single, albeit important, tool: **Kong License & Consumption Report - KLCR**.
+Welcome to the tools section of the Kong Customer Success team. As of this moment, the toolbox contains a single, albeit important, tool: **Kong License Consumption Report - KLCR**.
 
 The purpose of KLCR (pronounced "clicker", and newly renamed from KICK to avoid confusion with Kong's KIC--Kubernetes Ingress Controller) is to provide a simple mechanism for counting the number of services (total and discrete) across one or more Kong Enterprise environments, and gather an understanding of how many duplicate services exist across one's Kong estate.
 
@@ -18,7 +18,7 @@ KLCR also gathers the license report for each Kong environment provided, and sto
 
 ## Version
 
-2.0 is the latest version of the Kong License Consumption Report.
+2.1.0 is the latest version of the Kong License Consumption Report.
 
 ## Requirements
 
