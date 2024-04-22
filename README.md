@@ -89,9 +89,11 @@ You can get creative and add klcr.sh to your path if you'd like to make executio
 
 That it is. Assuming you used the example above, the output you will see on your terminal should be something like this:
 
-    KONG ENVIRONMENT: prod
-    ADMIN API       : https://prod_admin_api_host:8001
-    STATUS          : HTTP/2 200
+    Environment   : prod
+    Kong Version  : 2.8.4.9-enterprise-edition
+    Admin API     : https://prod_admin_api_host:8001
+    Gateway Status: Healthy
+    Dev Portal    : Enabled
     ┌────────────────┬──────────────────┬───────────────────┐
     │Workspace       │Gateway Services  │Discrete Services  │
     ├────────────────┼──────────────────┼───────────────────┤
@@ -105,9 +107,11 @@ That it is. Assuming you used the example above, the output you will see on your
     │Total           │24                │19 (x-workspace)   │
     └────────────────┴──────────────────┴───────────────────┘
 
-    KONG ENVIRONMENT: dr
-    ADMIN API       : https://dr_admin_api_host:8001
-    STATUS          : HTTP/2 200
+    Environment   : dr
+    Kong Version  : 2.8.4.9-enterprise-edition
+    Admin API     : https://dr_admin_api_host:8001
+    Gateway Status: Healthy
+    Dev Portal    : Enabled
     ┌────────────────┬──────────────────┬───────────────────┐
     │Workspace       │Gateway Services  │Discrete Services  │
     ├────────────────┼──────────────────┼───────────────────┤
