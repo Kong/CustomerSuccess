@@ -3,13 +3,15 @@
   [
     {
       "environment": "prod",
-      "admin_host": "https://prod_admin_api_host:8001",
-      "admin_token": "foobar"
+      "admin_api": "https://prod_admin_api_host:8001",
+      "admin_token": "foobar",
+      "deployment": "enterprise"
     },
     {
       "environment": "dr",
-      "admin_host": "https://dr_admin_api_host:8001",
-      "admin_token": "foobar"
+      "admin_api": "https://dr_admin_api_host:8001",
+      "admin_token": "foobar",
+      "deployment": "enterprise"
     }
   ],
   "discrete": {
