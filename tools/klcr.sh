@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KLCR_VERSION="2.1.0"
+KLCR_VERSION="2.2.0"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -154,9 +154,11 @@ KLCR is NOT a Kong product, nor is it supported by Kong.
 EOF
 }
 
+# KONG GATEWAY *****************************************************************************************************************************************
+
 # Generic method for hitting endpoints on the Admin API
-function fetch_from_admin_api() {
-  local host="$1"
+function kong_gateway_fetch_from_admin_api() {
+  local api="$1"
   local token="$2"
   local path="$3"
   local flag=""
@@ -165,10 +167,10 @@ function fetch_from_admin_api() {
     flag="$4"
   fi
 
-  if output=$(curl -s $flag -X GET "${host}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
+  if output=$(curl -s $flag -X GET "${api}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
     response="$output"
   else
-    echo "Error: Failed to fetch ${path} from ${host}" >&2
+    echo "Error: Failed to fetch ${path} from ${api}" >&2
     return 1
   fi
 
@@ -176,22 +178,22 @@ function fetch_from_admin_api() {
 }
 
 # Gets the license report 
-function fetch_license_report() {
+function kong_gateway_fetch_license_report() {
   local name="$1"
-  local host="$2"
+  local api="$2"
   local token="$3"
   local path="/license/report"
 
-  echo $(fetch_from_admin_api $host $token $path) | jq -s 'add'
+  echo $(kong_gateway_fetch_from_admin_api $api $token $path) | jq -s 'add'
 }
 
-function fetch_gateway_status() {
-  local host="$1"
+function kong_gateway_fetch_gateway_status() {
+  local api="$1"
   local token="$2"
   local path="/status"
   local flag="-I"
 
-  status=$(fetch_from_admin_api $host $token $path $flag | head -n 1)
+  status=$(kong_gateway_fetch_from_admin_api $api $token $path $flag | head -n 1)
 
   if [[ -n $(echo $status | grep 200) ]]; then
     status="Healthy"
@@ -201,24 +203,24 @@ function fetch_gateway_status() {
   echo "${status//[$'\t\r\n']}"
 }
 
-function fetch_gateway_version() {
-  local host="$1"
+function kong_gateway_fetch_gateway_version() {
+  local api="$1"
   local token="$2"
   local path="/default/kong"
 
-  version=$(fetch_from_admin_api $host $token $path | jq -r '.version')
+  version=$(kong_gateway_fetch_from_admin_api $api $token $path | jq -r '.version')
 
   echo $version
 }
 
-function fetch_workspaces() {
+function kong_gateway_fetch_workspaces() {
   local size=1000
-  local host="$1"
+  local api="$1"
   local token="$2"
   local path="/workspaces?size=$size"
 
   # get the first batch of $size workspaces
-  local raw=$(fetch_from_admin_api $host $token $path | jq)
+  local raw=$(kong_gateway_fetch_from_admin_api $api $token $path | jq)
   local workspaces=$(echo $raw | jq -r '.data[].name')
 
   # we need to make sure we check all the "pages" in case there are more than 1000 workspaces,
@@ -226,7 +228,7 @@ function fetch_workspaces() {
 
   # let's grab $size workspaces at a time until we run out
   while [[ -n "${offset}" ]]; do
-    raw=$(fetch_from_admin_api $host $token $offset | jq)
+    raw=$(kong_gateway_fetch_from_admin_api $api $token $offset | jq)
     workspaces="$workspaces $(echo $raw | jq -r '.data[].name')"
     offset=$(echo $raw | jq -r '.next // empty')
   done  
@@ -235,14 +237,14 @@ function fetch_workspaces() {
 }
 
 # Get a list of services in the workspace
-function fetch_workspace_services() {
+function kong_gateway_fetch_workspace_services() {
   local size=1000
-  local host="$1"
+  local api="$1"
   local token="$2"
   local path="/$3/services?size=$size"
 
   # get the first batch of $size workspaces
-  local raw=$(fetch_from_admin_api $host $token $path | jq)
+  local raw=$(kong_gateway_fetch_from_admin_api $api $token $path | jq)
   local services=$(echo $raw | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
 
   # we need to make sure we check all the "pages" in case there are more than 1000 workspaces,
@@ -250,7 +252,7 @@ function fetch_workspace_services() {
 
   # let's grab $size workspaces at a time until we run out
   while [[ -n "${offset}" ]]; do
-    raw=$(fetch_from_admin_api $host $token $offset | jq)
+    raw=$(kong_gateway_fetch_from_admin_api $api $token $offset | jq)
     nextBatch=$(echo $raw | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
     services=$(jq --argjson arr1 "$services" --argjson arr2 "$nextBatch" -n '$arr1 + $arr2')
     offset=$(echo $raw | jq -r '.next // empty')
@@ -264,12 +266,12 @@ function fetch_workspace_services() {
 }
 
 # Dev portal status in a workspace
-function fetch_workspace_dev_portal_status() {
-  local host="$1"
+function kong_gateway_fetch_workspace_dev_portal_status() {
+  local api="$1"
   local token="$2"
   local path="/$3/default/kong"
 
-  local portal=$(fetch_from_admin_api $host $token $path | jq '.configuration.portal')
+  local portal=$(kong_gateway_fetch_from_admin_api $api $token $path | jq '.configuration.portal')
 
   if [[ "true" == "${portal}" ]]; then
     portal="Enabled"
@@ -278,6 +280,248 @@ function fetch_workspace_dev_portal_status() {
   fi
 
   echo $portal
+}
+
+function handle_kong_enterprise() {
+  local env="$1"
+  local api="$2"
+  local token="$3"
+
+  local status=$(kong_gateway_fetch_gateway_status "$api" "$token")
+  local version=$(kong_gateway_fetch_gateway_version "$api" "$token")
+  local dev_portal=$(kong_gateway_fetch_workspace_dev_portal_status "$api" "$token")  
+
+  if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+    printf " Environment   : ${env}\n";
+    printf " Deployment    : Enterprise ($version)\n";
+    printf " Admin API     : $api\n";
+    printf " Gateway Status: $status\n";
+    printf " Dev Portal    : $dev_portal\n";
+  fi
+
+  # Fetch list of workspaces  
+  workspaces=$(kong_gateway_fetch_workspaces "$api" "$token")  
+  klcr_json+=$(printf '{ "environment": "%s", "deployment": "enterprise", "version": "%s", "admin_api": "%s", "status": "%s", "dev_portal": "%s", "workspaces": [' "${env}" "${version}" "$api" "$status" "$dev_portal" )
+
+  total_services_count=0
+  total_discrete_cross_workspace_count=0
+
+  if [ -n "$workspaces" ]; then
+    # Iterate over each workspace and add services to the array
+    total_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
+    dev_portal_count=0
+
+    for workspace in $workspaces; do
+      total_workspaces=$(($total_workspaces + 1))
+      workspace_svc_list=$(kong_gateway_fetch_workspace_services "$api" "$token" "$workspace" "$MASTER" "$MINIONS")
+      cp_services=$(echo "$cp_services $workspace_svc_list" | jq -s 'add')
+      all_gateway_services=$(echo "$all_gateway_services $workspace_svc_list" | jq -s 'add')
+
+      services_count=$(echo "$workspace_svc_list" | jq 'length')
+      discrete_count=$(echo "$workspace_svc_list" | jq 'unique | length')
+      total_services_count=$(($total_services_count + $services_count))
+
+      total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
+
+      klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' "$workspace" $services_count $discrete_count)
+    done
+
+    # remove the trailing comma (,) from the json constructed above
+    klcr_json=$(echo $klcr_json | sed 's/.$//')
+  else
+    echo "No workspaces to process."
+  fi
+
+  # let's add totals per workspace
+  total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
+  klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $total_services_count $total_discrete_cross_workspace_count )  
+
+  if [ -n "$total_services_output" ]; then
+    total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
+    total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_workspace_count (x-workspace)";)
+
+    if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+      echo "$total_services_output" | prettytable 3
+    fi
+  fi
+
+  # Write license output to file, including discrete services information
+  license=$(kong_gateway_fetch_license_report "${env}" $api $token)
+  echo $license > "$OUTPUT_DIR/$env.json"  
+}
+
+
+
+# KONG KONNECT *****************************************************************************************************************************************
+
+# Generic method for hitting endpoints on the Konnect API
+function kong_konnect_fetch_from_api() {
+  local api="$1"
+  local token="$2"
+
+  if [ -n "$3" ]; then
+    local path="$3"
+  else
+    local path=""
+  fi
+
+  if output=$(curl -s -X GET "${api}${path}" -H "Authorization: Bearer ${token}" -H "Content-Type: application/json"); then
+    response="$output"
+  else
+    echo "Error: Failed to fetch ${path} from ${api}" >&2
+    exit 1
+  fi
+
+  local response_code=$(echo $response | jq -r '.status // empty')
+
+  # there won't be an error code returned if the call is successful
+  if [ -z "$response_code" ]; then
+    echo "$response"
+  else
+    echo ""
+  fi
+}
+
+# Get a list of all control planes, but only if a control plane ID wasn't provided
+function kong_konnect_fetch_control_planes() {
+  # page size must be 100 or less
+  local size=100
+  local api="$1"
+  local token="$2"
+  local cp="$3"
+
+  if [ "$cp" == "null" ]; then
+    local path="/control-planes?page%5Bsize%5D=$size&page%5Bnumber%5D="
+    local raw=$(kong_konnect_fetch_from_api $api $token "${path}1" | jq)
+
+    # no need to keep on going if we got nothing back 
+    if [ -z $raw ]; then
+      return
+    fi
+
+    local control_planes=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}]')
+    local total_cps=$(echo $raw | jq -r '.meta.page.total')
+    
+    # if we have more control planes than our page size, it's time to loop some
+    if [[ $total_cps -gt $size ]]; then 
+      # first things first, let's see how many iterations we have to go through
+      local pages=$(( ($total_cps + $size - 1)/$size ))
+
+      # start at page 2, since we already got the first page above
+      for (( page=2; page<=$pages; page++ )); do        
+        raw=$(kong_konnect_fetch_from_api $api $token "${path}${page}" | jq)
+        nextBatch=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}]')
+        control_planes=$(jq  --argjson arr1 "$control_planes" --argjson arr2 "$nextBatch" -n '$arr1 + $arr2')
+      done
+    fi
+  else
+    local path="/control-planes/$cp"
+    local control_planes=$(kong_konnect_fetch_from_api $api $token $path | jq -r '[{id: "\(.id)", name: "\(.name)"}]')
+  fi
+
+  echo $control_planes | jq -r 'sort_by(.name) | .[].id'
+}
+
+# Get a list of services in the control plane
+function kong_konnect_fetch_control_plane_services() {
+  local size=1000
+  local api="$1"
+  local token="$2"
+  local path="/control-planes/$3/core-entities/services?size=$size"
+
+  local raw=$(kong_konnect_fetch_from_api $api $token $path | jq)
+  local services=$(echo $raw | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+
+  # we need to make sure we check all the "pages" in case there are more than 1000 workspaces,
+  local offset=$(echo $raw | jq -r '.next // empty')
+
+  # let's grab $size workspaces at a time until we run out
+  while [[ -n "${offset}" ]]; do
+    raw=$(kong_konnect_fetch_from_api $api $token $offset | jq)
+    nextBatch=$(echo $raw | jq -r '[.data[] | {service: "\(.protocol)://\(.host):\(.port)\(.path)"}]')
+    services=$(jq --argjson arr1 "$services" --argjson arr2 "$nextBatch" -n '$arr1 + $arr2')
+    offset=$(echo $raw | jq -r '.next // empty')
+  done  
+
+  if [[ ! -z "$4" && ! -z "$5" ]]; then
+    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= sub($minions;$master)')
+  fi
+
+  echo $services
+}
+
+# Gets a control plane name
+function kong_konnect_fetch_control_plane_name() {
+  local api="$1"
+  local token="$2"
+  local path="/control-planes/$3"
+
+  local name=$(kong_konnect_fetch_from_api $api $token $path | jq -r '.name')
+
+  echo $name
+}
+
+# Kong Konnect-specific motions
+function handle_kong_konnect() {
+  local env="$1"
+  local api="$2"
+  local token="$3"
+  local control_plane_id="$4"
+  local name=""
+
+  if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+    printf " Environment   : $env\n";
+    printf " Deployment    : Konnect\n";
+    printf " Admin API     : $api\n";
+  fi
+
+  klcr_json+=$(printf '{ "environment": "%s", "deployment": "konnect", "admin_api": "%s", "control_planes": [' "$env" "$api")
+  control_planes=$(kong_konnect_fetch_control_planes $api $token $control_plane_id)
+
+  if [ -n "$control_planes" ]; then
+    # Iterate over each control plane and add services to the array
+    total_services_output+=$(printf 'Control Planes\tGateway Services\tDiscrete Services\n';)
+
+    for cp in $control_planes; do
+      name="$(kong_konnect_fetch_control_plane_name $api $token $cp)"
+      cp_services=$(kong_konnect_fetch_control_plane_services "$api" "$token" $cp "$MASTER" "$MINIONS")
+
+      if [ -z "$cp_services" ]; then
+        cp_services=()
+      fi
+
+      total_control_planes=$(($total_control_planes + 1))
+      konnect_services=$(echo "$konnect_services $cp_services" | jq -s 'add')
+      all_gateway_services=$(echo "$all_gateway_services $cp_services" | jq -s 'add')
+
+      services_count=$(echo "$cp_services" | jq 'length')
+      discrete_count=$(echo "$cp_services" | jq 'unique | length')
+
+      total_services_output+=$(printf '\n%s\t%d\t%d\n' "$name" "$services_count" "$discrete_count")
+
+      klcr_json+=$(printf '{"control_plane": "%s", "control_plane_id": "%s", "gateway_services": %d, "discrete_services": %d},' "$name" $cp $services_count $discrete_count)
+    done
+
+    # remove the trailing comma (,) from the json constructed above
+    klcr_json=$(echo $klcr_json | sed 's/.$//')
+
+  else
+    printf ' --\n ERROR: No control planes to process. Please check permissions for the access token provided.\n'
+  fi
+
+  # let's add totals per workspace
+  total_services_count=$(echo "$konnect_services" | jq 'length')
+  total_discrete_cross_control_plane_count=$(echo "$konnect_services" | jq 'unique | length')
+  klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $total_services_count $total_discrete_cross_control_plane_count)
+
+  if [ -n "$total_services_output" ]; then
+    total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
+    total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_control_plane_count (x-control-plane)";)
+
+    if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+      echo "$total_services_output" | prettytable 3
+    fi
+  fi
 }
 
 # Get CLI options
@@ -359,27 +603,17 @@ MINIONS=$(jq -r '.discrete.minions' $INPUT_FILE)
 
 # Count for all environments
 all_gateway_services=[]
-total_workspaces=0
 
 klcr_json=$(printf '{"klcr_version":"%s", "kong_environments": %d, "kong": [' $KLCR_VERSION $ENV_COUNT)
 
 for ((i=0; $i<$ENV_COUNT; i++)); do
     # A little clunky but this works
-    env=$(jq -r '.environments.['$i'].environment' $INPUT_FILE)
-    host=$(jq -r '.environments.['$i'].admin_host' $INPUT_FILE)
-    token=$(jq -r '.environments.['$i'].admin_token' $INPUT_FILE)
-
-    status=$(fetch_gateway_status "$host" "$token")
-    version=$(fetch_gateway_version "$host" "$token")
-    dev_portal=$(fetch_workspace_dev_portal_status "$host" "$token")
-
-    if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-      printf " Environment   : $env\n";
-      printf " Kong Version  : $version\n";
-      printf " Admin API     : $host\n";
-      printf " Gateway Status: $status\n";
-      printf " Dev Portal    : $dev_portal\n";
-    fi
+    env=$(jq -r ".environments.[$i].environment" $INPUT_FILE)
+    api=$(jq -r ".environments.[$i].admin_api" $INPUT_FILE)
+    token=$(jq -r ".environments.[$i].admin_token" $INPUT_FILE)
+    deployment=$(jq -r ".environments.[$i].deployment" $INPUT_FILE)
+    # the cp id is an optional parameter
+    control_plane_id=$(jq -r ".environments.[$i].control_plane_id" $INPUT_FILE)
 
     # Count the unique services
     total_services_output=""
@@ -388,61 +622,19 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     # Track all services separately so we can do one final check for discrete across all workspaces
     cp_services=[]
 
-    # Fetch list of workspaces
-    workspaces=$(fetch_workspaces "$host" "$token")
-    klcr_json+=$(printf '{ "environment": "%s", "version": "%s", "admin_api": "%s", "status": "%s", "dev_portal": "%s", "workspaces": [' "$env" "$version" "$host" "$status" "$dev_portal" )
-
-    if [ -n "$workspaces" ]; then
-      # Iterate over each workspace and add services to the array
-      total_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
-      dev_portal_count=0
-
-      for workspace in $workspaces; do
-        total_workspaces=$(($total_workspaces + 1))
-        workspace_svc_list=$(fetch_workspace_services "$host" "$token" "$workspace" "$MASTER" "$MINIONS")
-        cp_services=$(echo "$cp_services $workspace_svc_list" | jq -s 'add')
-        all_gateway_services=$(echo "$all_gateway_services $workspace_svc_list" | jq -s 'add')
-
-        services_count=$(echo "$workspace_svc_list" | jq 'length')
-        discrete_count=$(echo "$workspace_svc_list" | jq 'unique | length')
-
-        total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
-
-        klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' "$workspace" $services_count $discrete_count)
-      done
-
-      # remove the trailing comma (,) from the json constructed above
-      klcr_json=$(echo $klcr_json | sed 's/.$//')
+    if [[ $deployment == "enterprise" ]]; then
+      handle_kong_enterprise "${env}" $api $token
+    elif [[ $deployment == "konnect" ]]; then
+      handle_kong_konnect "${env}" $api $token $control_plane_id
     else
-      echo "No workspaces to process."
-    fi
-
-    # close the json array
-    klcr_json+="], "
-    total_services_count=$(echo "$cp_services" | jq 'length')
-    total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
-
-    # let's add totals per workspace
-    klcr_json+=$(printf '"workspaces_services": %d, "workspaces_discrete": %d },' $total_services_count $total_discrete_cross_workspace_count )
-
-    if [ -n "$total_services_output" ]; then
-      total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
-      total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_workspace_count (x-workspace)";)
-
-      if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-        echo "$total_services_output" | prettytable 3
-      fi
+      echo "Unsupported deployment: $deployment"
     fi
 
     all_gateway_services_count=$(echo "$all_gateway_services" | jq 'length')
     all_discrete_services_count=$(echo "$all_gateway_services" | jq 'unique | length')
 
-    summary_output+=$(printf '%s\t%s\t%s\t%s\n'  "Kong Environments" "Total Workspaces" "Gateway Services" "Discrete Services")
-    summary_output+=$(printf '\n%d\t%d\t%d\t%d (x-environment)\n'  $ENV_COUNT $total_workspaces "$all_gateway_services_count" "$all_discrete_services_count")
-
-    # Write license output to file, including discrete services information
-    license=$(fetch_license_report $env $host $token)
-    echo $license > "$OUTPUT_DIR/$env.json"
+    summary_output+=$(printf '%s\t%s\t%s\n'  "Kong Environments" "Gateway Services" "Discrete Services")
+    summary_output+=$(printf '\n%d\t%d\t%d (x-environment)\n'  $ENV_COUNT "$all_gateway_services_count" "$all_discrete_services_count")
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
       printf "\n"
@@ -453,11 +645,11 @@ klcr_json=$(echo $klcr_json | sed 's/.$//')
 
 if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
   printf " SUMMARY\n"
-  echo "$summary_output" | prettytable 4
+  echo "$summary_output" | prettytable 3
   printf "\n"
 fi
 
-klcr_json+=$(printf '], "total_workspaces": %d, "total_gateway_services": %d, "total_discrete_services": %d }' $total_workspaces $all_gateway_services_count $all_discrete_services_count)
+klcr_json+=$(printf '], "total_gateway_services": %d, "total_discrete_services": %d }' $all_gateway_services_count $all_discrete_services_count)
 
 # store klcr information in its own JSON file
 echo $klcr_json > "$OUTPUT_DIR/klcr.json"
