@@ -506,7 +506,7 @@ function handle_kong_konnect() {
     klcr_json=$(echo $klcr_json | sed 's/.$//')
 
   else
-    printf ' --\n ERROR: No control planes to process. Please check permissions on the access token provided.\n'
+    printf ' --\n ERROR: No control planes to process. Please check permissions for the access token provided.\n'
   fi
 
   # let's add totals per workspace
