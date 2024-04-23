@@ -292,7 +292,7 @@ function handle_kong_enterprise() {
   local dev_portal=$(kong_gateway_fetch_workspace_dev_portal_status "$api" "$token")  
 
   if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-    printf " Environment   : $env\n";
+    printf " Environment   : ${env}\n";
     printf " Deployment    : Enterprise ($version)\n";
     printf " Admin API     : $api\n";
     printf " Gateway Status: $status\n";
@@ -301,7 +301,7 @@ function handle_kong_enterprise() {
 
   # Fetch list of workspaces  
   workspaces=$(kong_gateway_fetch_workspaces "$api" "$token")  
-  klcr_json+=$(printf '{ "environment": "%s", "deployment": "enterprise", "version": "%s", "admin_api": "%s", "status": "%s", "dev_portal": "%s", "workspaces": [' "$env" "$version" "$api" "$status" "$dev_portal" )
+  klcr_json+=$(printf '{ "environment": "%s", "deployment": "enterprise", "version": "%s", "admin_api": "%s", "status": "%s", "dev_portal": "%s", "workspaces": [' "${env}" "${version}" "$api" "$status" "$dev_portal" )
 
   total_services_count=0
   total_discrete_cross_workspace_count=0
@@ -346,7 +346,7 @@ function handle_kong_enterprise() {
   fi
 
   # Write license output to file, including discrete services information
-  license=$(kong_gateway_fetch_license_report $env $api $token)
+  license=$(kong_gateway_fetch_license_report "${env}" $api $token)
   echo $license > "$OUTPUT_DIR/$env.json"  
 }
 
@@ -372,7 +372,14 @@ function kong_konnect_fetch_from_api() {
     exit 1
   fi
 
-  echo "$response"
+  local response_code=$(echo $response | jq -r '.status // empty')
+
+  # there won't be an error code returned if the call is successful
+  if [ -z "$response_code" ]; then
+    echo "$response"
+  else
+    echo ""
+  fi
 }
 
 # Get a list of all control planes, but only if a control plane ID wasn't provided
@@ -386,6 +393,12 @@ function kong_konnect_fetch_control_planes() {
   if [ "$cp" == "null" ]; then
     local path="/control-planes?page%5Bsize%5D=$size&page%5Bnumber%5D="
     local raw=$(kong_konnect_fetch_from_api $api $token "${path}1" | jq)
+
+    # no need to keep on going if we got nothing back 
+    if [ -z $raw ]; then
+      return
+    fi
+
     local control_planes=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}]')
     local total_cps=$(echo $raw | jq -r '.meta.page.total')
     
@@ -493,7 +506,7 @@ function handle_kong_konnect() {
     klcr_json=$(echo $klcr_json | sed 's/.$//')
 
   else
-    echo "No control planes to process."
+    printf ' --\n ERROR: No control planes to process. Please check permissions on the access token provided.\n'
   fi
 
   # let's add totals per workspace
@@ -610,9 +623,9 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     cp_services=[]
 
     if [[ $deployment == "enterprise" ]]; then
-      handle_kong_enterprise $env $api $token
+      handle_kong_enterprise "${env}" $api $token
     elif [[ $deployment == "konnect" ]]; then
-      handle_kong_konnect $env $api $token $control_plane_id
+      handle_kong_konnect "${env}" $api $token $control_plane_id
     else
       echo "Unsupported deployment: $deployment"
     fi
