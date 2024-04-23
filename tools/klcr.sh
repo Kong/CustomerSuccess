@@ -378,7 +378,7 @@ function kong_konnect_fetch_from_api() {
 # Get a list of all control planes, but only if a control plane ID wasn't provided
 function kong_konnect_fetch_control_planes() {
   # page size must be 100 or less
-  local size=10
+  local size=100
   local api="$1"
   local token="$2"
   local cp="$3"
@@ -386,27 +386,27 @@ function kong_konnect_fetch_control_planes() {
   if [ "$cp" == "null" ]; then
     local path="/control-planes?page%5Bsize%5D=$size&page%5Bnumber%5D="
     local raw=$(kong_konnect_fetch_from_api $api $token "${path}1" | jq)
-    local control_planes=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}] | sort_by(.name)')
+    local control_planes=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}]')
     local total_cps=$(echo $raw | jq -r '.meta.page.total')
     
     # if we have more control planes than our page size, it's time to loop some
-    if [ $total_cps > $size ]; then 
+    if [[ $total_cps -gt $size ]]; then 
       # first things first, let's see how many iterations we have to go through
       local pages=$(( ($total_cps + $size - 1)/$size ))
 
       # start at page 2, since we already got the first page above
       for (( page=2; page<=$pages; page++ )); do        
         raw=$(kong_konnect_fetch_from_api $api $token "${path}${page}" | jq)
-        nextBatch=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}] | sort_by(.name)')
+        nextBatch=$(echo $raw | jq -r '[.data[] | {id: "\(.id)", name: "\(.name)"}]')
         control_planes=$(jq  --argjson arr1 "$control_planes" --argjson arr2 "$nextBatch" -n '$arr1 + $arr2')
       done
     fi
   else
     local path="/control-planes/$cp"
-    local control_planes=$(kong_konnect_fetch_from_api $api $token $path | jq -r '[{id: "\(.id)", name: "\(.name)"}] | sort_by(.name)')
+    local control_planes=$(kong_konnect_fetch_from_api $api $token $path | jq -r '[{id: "\(.id)", name: "\(.name)"}]')
   fi
 
-  echo $control_planes | jq -r '.[].id'
+  echo $control_planes | jq -r 'sort_by(.name) | .[].id'
 }
 
 # Get a list of services in the control plane
