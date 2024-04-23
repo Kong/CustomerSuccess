@@ -22,7 +22,7 @@ KLCR also gathers the license report for each Kong environment provided, and sto
 
 ## Requirements
 
-As with any software, there are some prerequisists that must be met. At the very minimum you need to know the Admin API URL and the KONG_ADMIN_TOKEN value used to communicate with the Admin API, and jq.
+As with any software, there are some prerequisists that must be met. At the very minimum you need to know the credentials used to communicate with the Admin API (or Konnect API), and jq.
 
 KLCR runs in a bash shell, so either a Mac or a Linux machine are necessary to execute the script.
 
@@ -71,6 +71,8 @@ Version 2.2.0 introduces support for Kong Konnect; therefore, a new field called
                 "admin_token": "foobar",
                 "deployment": "enterprise"
             }
+
+New in 2.2 is the deployment field, as well as a rename from *admin_host* to *admin_api*. The deployment for Kong Enterprise is *enterprise* as seen in the example above.
 
 **Kong Konnect**
 
