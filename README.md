@@ -18,7 +18,7 @@ KLCR also gathers the license report for each Kong environment provided, and sto
 
 ## Version
 
-2.1.0 is the latest version of the Kong License Consumption Report.
+2.2.0 is the latest version of the Kong License Consumption Report.
 
 ## Requirements
 
@@ -31,18 +31,27 @@ KLCR runs in a bash shell, so either a Mac or a Linux machine are necessary to e
 Since the objective of KLCR is to count discrete services across a user's Kong estate, it is only logical to expect one or more Kong clusters. For this, a JSON file containing details of said environments must be passed in as an input parameter to KLCR. An example can be found in [input/envs.json](input/envs.json); the general form is as follows:
 
     {
-        "environments:
+        "environments":
         [
             {
-                "environment": "prod",
-                "admin_host": "https://prod_admin_api_host:8001",
-                "admin_token": "foobar"
+                "environment": "local",
+                "admin_api": "https://prod_admin_api:8001",
+                "admin_token": "kong_admin",
+                "deployment": "enterprise"
             },
             {
                 "environment": "dr",
-                "admin_host": "https://dr_admin_api_host:8001",
-                "admin_token": "foobar"
-            }
+                "admin_api": "https://dr_admin_api:8001",
+                "admin_token": "kong_admin",
+                "deployment": "enterprise"
+            },            
+            {
+                "environment": "aws1",
+                "admin_api" : "https://us.api.konghq.com/v2",
+                "admin_token": "kpat_konnectaccesstoken",
+                "deployment": "konnect",
+                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"   // optional -- See Konnect section below
+            }    
         ],
         "discrete": {
             "master": "prod",
@@ -50,7 +59,32 @@ Since the objective of KLCR is to count discrete services across a user's Kong e
         }
     }
 
-In the example above, there are 2 Kong environments--prod and dr. As mentioned earlier, in order for KLCR to connect to the Admin API in each Kong environment the KONG_ADMIN_TOKEN value must be passed in the request's header.
+In the example above, there are 3 Kong environments: *prod* and *dr* are 2 Kong Enterprise environments, and *aws1* is a Konnect environment. Support for Konnect is new as of version 2.2.0.
+
+Version 2.2.0 introduces support for Kong Konnect; therefore, a new field called *deployment* differenciates the various Kong environments provided in the input file.
+
+**Kong Enterprise**
+
+            {
+                "environment": "dr",
+                "admin_api": "https://dr_admin_api:8001",
+                "admin_token": "foobar",
+                "deployment": "enterprise"
+            }
+
+**Kong Konnect**
+
+            {
+                "environment": "aws1",
+                "admin_api" : "https://us.api.konghq.com/v2",
+                "admin_token": "kpat_konnectaccesstoken",
+                "deployment": "konnect",
+                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"   // optional -- See Konnect section below
+            }    
+
+The environment definition for Kong Konnect is slightly different than that for Kong Enterprise. The API now points to the Konnect API, and the token is the Konnect access token. The deployment field indicates Konnect, as expected. Finally, there is an optional *control_plane_id* field. If this field is specified, only services for that control plane will be retrieved and deduplicated; should the field not be present at all, all control planes the user has access to (including read-only access) will be retrieved and deduplicated.
+
+**Discrete**
 
 New as of KLCR 1.1, there is a section where you are able to provide "discreteness" between your API services. What this means is that if you have the same "discrete unit of programmatic functionality" in different environments (e.g., dev, prod, qa, and stage), and the upstream hosts are aptly named based on the environment they serve, KLCR will count those services as one. An example should help illustrate this.
     
