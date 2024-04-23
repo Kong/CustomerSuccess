@@ -61,7 +61,11 @@ Since the objective of KLCR is to count discrete services across a user's Kong e
 
 In the example above, there are 3 Kong environments: *prod* and *dr* are 2 Kong Enterprise environments, and *aws1* is a Konnect environment. Support for Konnect is new as of version 2.2.0.
 
-Version 2.2.0 introduces support for Kong Konnect; therefore, a new field called *deployment* differenciates the various Kong environments provided in the input file.
+Valid options for the *deployment* field are (in lowercase):
+* enterprise
+* konnect
+
+Anything else will result in an error.
 
 **Kong Enterprise**
 
