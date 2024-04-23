@@ -206,9 +206,14 @@ If you are not familiar with the [Kong Admin API](https://docs.konghq.com/gatewa
 2. [Listing services](https://docs.konghq.com/gateway/api/admin-ee/latest/#/Services/list-service)
 3. [License report](https://docs.konghq.com/gateway/latest/licenses/report/#generate-a-license-report)
 
+For Konnect, the [Konnect API ](https://docs.konghq.com/api/) is used. The main endpoints that are being used from Konnect are:
+
+1. [Control Planes](https://docs.konghq.com/konnect/api/control-planes/latest/)
+2. [Control Plane Services](https://docs.konghq.com/konnect/api/control-plane-configuration/latest/)
+
 The logic behind the scenes is rather simple. As mentioned above, it consists of some loops to get all services in each workspace, build a master list of every service across all Kong environments, and then use jq to find the data we need. If you are curious about the number of Admin API calls made, that all depends on how many workspaces you have in each Kong cluster. You can do a cursory search for curl in [KLCR.sh](tools/KLCR.sh), and figure it out rather quickly.
 
-KLCR is read-only as it relates to Kong Gateway; the source code is provided in efforts of full transparency, and the ability to modify if needed.
+KLCR is read-only as it relates to Kong; the source code is provided in efforts of full transparency, and the ability to modify if needed.
 
 ## Question or Feedback
 
