@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KLCR_VERSION="2.2.0"
+KLCR_VERSION="2.2.1"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -120,22 +120,25 @@ function print_help() {
 Usage: $(basename "$0") [OPTIONS]
 
 Options:
-  -i, --input-file FILE    Details of every Kong environment.
-  -o, --output-dir DIR     Name of the directory where all license reports will be saved.
-  -s, --suppress           Suppress printing to standard output.
-  -v, --version            Shows the version of KLCR.
-  -h, --help               Display this help message.
+  -i, --input-file FILE         Details of every Kong environment.
+  -l, --list-discrete-services  Lists discrete services in the generated klcr.json file.
+  -o, --output-dir DIR          Name of the directory where all license reports will be saved.
+  -s, --suppress                Suppress printing to standard output.
+  -v, --version                 Shows the version of KLCR.
+  -h, --help                    Display this help message.
 
 Example:
-  $(basename "$0") -i input.json -o ./licenses/test
+  $(basename "$0") -i input.json -o output_dir -l
 
 Description:
-  This script analyzes Kong environments and provides a summary of services
-  and workspaces. In addition, it collects the output of the license report
-  for every Kong enviroment provided.
+  This script analyzes Kong environments and provides a summary of gateway services, and
+  discrete services. In addition, it collects the output of the license report for every 
+  Kong Enterprise enviroment specified.
   
-  It requires 'jq' to be installed. You can download it from
+  KLCR requires 'jq' to be installed. You can download it from
   https://stedolan.github.io/jq/
+
+  See https://github.com/Kong/CustomerSuccess for more information.
 
 Disclaimr:
   KLCR is NOT a Kong product, nor is it supported by Kong.
@@ -323,7 +326,11 @@ function handle_kong_enterprise() {
 
       total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
 
-      klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' "$workspace" $services_count $discrete_count)
+      if [ $LIST_DISCRETE_SERVICES ]; then
+        klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d, "discrete_services_list": %s},' "$workspace" $services_count $discrete_count $(echo $workspace_svc_list | jq -c 'unique|sort'))
+      else
+        klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d},' "$workspace" $services_count $discrete_count)
+      fi
     done
 
     # remove the trailing comma (,) from the json constructed above
@@ -395,7 +402,7 @@ function kong_konnect_fetch_control_planes() {
     local raw=$(kong_konnect_fetch_from_api $api $token "${path}1" | jq)
 
     # no need to keep on going if we got nothing back 
-    if [ -z $raw ]; then
+    if [ -z "$raw" ]; then
       return
     fi
 
@@ -499,7 +506,12 @@ function handle_kong_konnect() {
 
       total_services_output+=$(printf '\n%s\t%d\t%d\n' "$name" "$services_count" "$discrete_count")
 
-      klcr_json+=$(printf '{"control_plane": "%s", "control_plane_id": "%s", "gateway_services": %d, "discrete_services": %d},' "$name" $cp $services_count $discrete_count)
+      if [ $LIST_DISCRETE_SERVICES ]; then
+        klcr_json+=$(printf '{"control_plane": "%s", "control_plane_id": "%s", "gateway_services": %d, "discrete_services": %d, "discrete_services_list": %s},' "$name" $cp $services_count $discrete_count $(echo $cp_services | jq -c 'unique|sort'))  
+      else
+        klcr_json+=$(printf '{"control_plane": "%s", "control_plane_id": "%s", "gateway_services": %d, "discrete_services": %d},' "$name" $cp $services_count $discrete_count)
+      fi
+
     done
 
     # remove the trailing comma (,) from the json constructed above
@@ -538,6 +550,10 @@ while (( "$#" )); do
           exit 1
         fi
         ;;
+      -l|--list-discrete-services)
+        LIST_DISCRETE_SERVICES=1
+        shift
+        ;;        
       -o|--output-file)
         if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
           OUTPUT_DIR=$2
@@ -604,7 +620,7 @@ MINIONS=$(jq -r '.discrete.minions' $INPUT_FILE)
 # Count for all environments
 all_gateway_services=[]
 
-klcr_json=$(printf '{"klcr_version":"%s", "kong_environments": %d, "kong": [' $KLCR_VERSION $ENV_COUNT)
+klcr_json=$(printf '{"klcr_version":"%s", "discrete": {"master": "%s", "minions": "%s"}, "kong_environments": %d, "kong": [' $KLCR_VERSION $MASTER $MINIONS $ENV_COUNT)
 
 for ((i=0; $i<$ENV_COUNT; i++)); do
     # A little clunky but this works
