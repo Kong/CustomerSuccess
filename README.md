@@ -18,7 +18,7 @@ KLCR also gathers the license report for each Kong environment provided, and sto
 
 ## Version
 
-2.2.0 is the latest version of the Kong License Consumption Report.
+2.2.1 is the latest version of the Kong License Consumption Report.
 
 ## Requirements
 
