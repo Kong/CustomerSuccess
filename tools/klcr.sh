@@ -137,7 +137,7 @@ Description:
   Kong Enterprise enviroment specified.
   
   KLCR requires 'jq' to be installed. You can download it from
-  https://stedolan.github.io/jq/
+  https://jqlang.github.io/jq/
 
   See https://github.com/Kong/CustomerSuccess for more information.
 
@@ -629,12 +629,12 @@ klcr_json=$(printf '{"klcr_version":"%s", "discrete": {"master": "%s", "minions"
 
 for ((i=0; $i<$ENV_COUNT; i++)); do
     # A little clunky but this works
-    env=$(jq -r ".environments.[$i].environment" $INPUT_FILE)
-    api=$(jq -r ".environments.[$i].admin_api" $INPUT_FILE)
-    token=$(jq -r ".environments.[$i].admin_token" $INPUT_FILE)
-    deployment=$(jq -r ".environments.[$i].deployment" $INPUT_FILE)
+    env=$(jq -r --argjson e $i '.environments.[$e].environment' $INPUT_FILE)
+    api=$(jq -r --argjson e $i '.environments.[$e].admin_api' $INPUT_FILE)
+    token=$(jq -r --argjson e $i '.environments.[$e].admin_token' $INPUT_FILE)
+    deployment=$(jq -r --argjson e $i '.environments.[$e].deployment' $INPUT_FILE)
     # the cp id is an optional parameter
-    control_plane_id=$(jq -r ".environments.[$i].control_plane_id" $INPUT_FILE)
+    control_plane_id=$(jq -r --argjson e $i '.environments.[$e].control_plane_id' $INPUT_FILE)
 
     # Count the unique services
     total_services_output=""

@@ -109,7 +109,7 @@ The four services above, irrespective of the Kong control planes (i.e., environm
 
 [jq](https://jqlang.github.io/jq/) is the tool that allows KLCR to do its magic. If you don't have jq installed, please do so or else you will render KLCR useless.
 
-KLCR has been tested successfully with version 1.7.1 on MacOS 14.2.1
+KLCR has been tested successfully with version **1.7.1** on MacOS 14.2.1, and Ubuntu 23.10. It is a known issue that jq version 1.6 does not work with KLCR; if you are on that version, please upgrade to 1.7.1 before proceeding.
 
 ## Running KLCR
 
