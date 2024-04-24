@@ -125,6 +125,7 @@ Options:
   -o, --output-dir DIR          Name of the directory where all license reports will be saved.
   -s, --suppress                Suppress printing to standard output.
   -v, --version                 Shows the version of KLCR.
+  -k, --insecure                Makes curl skip the verification step and proceed without checking.
   -h, --help                    Display this help message.
 
 Example:
@@ -170,7 +171,7 @@ function kong_gateway_fetch_from_admin_api() {
     flag="$4"
   fi
 
-  if output=$(curl -s $flag -X GET "${api}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
+  if output=$(curl $SKIP_VERIFICATION -s $flag -X GET "${api}${path}" -H "Kong-Admin-Token: ${token}" -H "Content-Type: application/json"); then
     response="$output"
   else
     echo "Error: Failed to fetch ${path} from ${api}" >&2
@@ -372,7 +373,7 @@ function kong_konnect_fetch_from_api() {
     local path=""
   fi
 
-  if output=$(curl -s -X GET "${api}${path}" -H "Authorization: Bearer ${token}" -H "Content-Type: application/json"); then
+  if output=$(curl $SKIP_VERIFICATION -s -X GET "${api}${path}" -H "Authorization: Bearer ${token}" -H "Content-Type: application/json"); then
     response="$output"
   else
     echo "Error: Failed to fetch ${path} from ${api}" >&2
@@ -554,6 +555,10 @@ while (( "$#" )); do
         LIST_DISCRETE_SERVICES=1
         shift
         ;;        
+      -k|--insecure)
+        SKIP_VERIFICATION=$1
+        shift
+        ;;
       -o|--output-file)
         if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
           OUTPUT_DIR=$2
