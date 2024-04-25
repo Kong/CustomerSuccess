@@ -310,6 +310,8 @@ function handle_kong_enterprise() {
   total_services_count=0
   total_discrete_cross_workspace_count=0
 
+  cp_services=[]
+
   if [ -n "$workspaces" ]; then
     # Iterate over each workspace and add services to the array
     total_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
@@ -459,14 +461,14 @@ function kong_konnect_fetch_control_plane_services() {
 }
 
 # Gets a control plane name
-function kong_konnect_fetch_control_plane_name() {
+function kong_konnect_fetch_control_plane_info() {
   local api="$1"
   local token="$2"
   local path="/control-planes/$3"
 
-  local name=$(kong_konnect_fetch_from_api $api $token $path | jq -r '.name')
+  local info=$(kong_konnect_fetch_from_api $api $token $path | jq)
 
-  echo $name
+  echo $info
 }
 
 # Kong Konnect-specific motions
@@ -475,6 +477,7 @@ function handle_kong_konnect() {
   local api="$2"
   local token="$3"
   local control_plane_id="$4"
+  local control_plane_type_filter="$5"
   local name=""
 
   if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
@@ -486,12 +489,26 @@ function handle_kong_konnect() {
   klcr_json+=$(printf '{ "environment": "%s", "deployment": "konnect", "admin_api": "%s", "control_planes": [' "$env" "$api")
   control_planes=$(kong_konnect_fetch_control_planes $api $token $control_plane_id)
 
+  konnect_services=[]
+
   if [ -n "$control_planes" ]; then
     # Iterate over each control plane and add services to the array
-    total_services_output+=$(printf 'Control Planes\tGateway Services\tDiscrete Services\n';)
+    total_services_output+=$(printf 'Control Planes\tGateway Services\tDiscrete Services\tControl Plane Type\n';)
 
     for cp in $control_planes; do
-      name="$(kong_konnect_fetch_control_plane_name $api $token $cp)"
+      cp_info=$(kong_konnect_fetch_control_plane_info $api $token $cp)
+      cp_type=$(echo $cp_info | jq -r '.config.cluster_type')
+
+      # if a filter was passed in, we'll honor it
+      if [ "$control_plane_type_filter" != "null" ]; then
+        match_found=$(echo $cp_type | grep -E "($control_plane_type_filter)")
+        
+        if [ -z "$match_found" ]; then
+          continue
+        fi
+      fi
+
+      cp_name=$(echo $cp_info | jq -r '.name')      
       cp_services=$(kong_konnect_fetch_control_plane_services "$api" "$token" $cp "$MASTER" "$MINIONS")
 
       if [ -z "$cp_services" ]; then
@@ -505,14 +522,19 @@ function handle_kong_konnect() {
       services_count=$(echo "$cp_services" | jq 'length')
       discrete_count=$(echo "$cp_services" | jq 'unique | length')
 
-      total_services_output+=$(printf '\n%s\t%d\t%d\n' "$name" "$services_count" "$discrete_count")
+      total_services_output+=$(printf '\n%s\t%d\t%d\t%s\n' "$cp_name" "$services_count" "$discrete_count" "$cp_type")
+
+      klcr_json+=$(printf '{"control_plane": "%s"' "$cp_name")
+      klcr_json+=$(printf ',"control_plane_id": "%s"' $cp)
+      klcr_json+=$(printf ',"control_plane_type": "%s"' "$cp_type")
+      klcr_json+=$(printf ',"gateway_services": %d' $services_count)
+      klcr_json+=$(printf ',"discrete_services": %d' $discrete_count)
 
       if [ $LIST_DISCRETE_SERVICES ]; then
-        klcr_json+=$(printf '{"control_plane": "%s", "control_plane_id": "%s", "gateway_services": %d, "discrete_services": %d, "discrete_services_list": %s},' "$name" $cp $services_count $discrete_count $(echo $cp_services | jq -c 'unique|sort'))  
-      else
-        klcr_json+=$(printf '{"control_plane": "%s", "control_plane_id": "%s", "gateway_services": %d, "discrete_services": %d},' "$name" $cp $services_count $discrete_count)
+        klcr_json+=$(printf ',"discrete_services_list": %s' $(echo $cp_services | jq -c 'unique|sort'))  
       fi
 
+      klcr_json+="},"
     done
 
     # remove the trailing comma (,) from the json constructed above
@@ -522,17 +544,17 @@ function handle_kong_konnect() {
     printf ' --\n ERROR: No control planes to process. Please check permissions for the access token provided.\n'
   fi
 
-  # let's add totals per workspace
+  # let's add totals per control plane
   total_services_count=$(echo "$konnect_services" | jq 'length')
   total_discrete_cross_control_plane_count=$(echo "$konnect_services" | jq 'unique | length')
   klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $total_services_count $total_discrete_cross_control_plane_count)
 
   if [ -n "$total_services_output" ]; then
-    total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
-    total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_control_plane_count (x-control-plane)";)
+    total_services_output+=$(printf '\n%s\t%s\t%s\t%s\n'  "" "" "" "";)
+    total_services_output+=$(printf '\n%s\t%d\t%s\t%s\n'  "Total" $total_services_count "$total_discrete_cross_control_plane_count (x-control-plane)" "";)
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-      echo "$total_services_output" | prettytable 3
+      echo "$total_services_output" | prettytable 4
     fi
   fi
 }
@@ -567,7 +589,7 @@ while (( "$#" )); do
           echo "Error: Output file is missing" >&2
           exit 1
         fi
-        ;;
+        ;;     
       -s|--suppress)
         NO_PRETTY_PRINT=1
         shift
@@ -635,6 +657,8 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     deployment=$(jq -r --argjson e $i '.environments.[$e].deployment' $INPUT_FILE)
     # the cp id is an optional parameter
     control_plane_id=$(jq -r --argjson e $i '.environments.[$e].control_plane_id' $INPUT_FILE)
+    # as is the filter
+    control_plane_type_filter=$(jq -r --argjson e $i '.environments.[$e].control_plane_type_filter' $INPUT_FILE)
 
     # Count the unique services
     total_services_output=""
@@ -646,7 +670,7 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     if [[ $deployment == "enterprise" ]]; then
       handle_kong_enterprise "${env}" $api $token
     elif [[ $deployment == "konnect" ]]; then
-      handle_kong_konnect "${env}" $api $token $control_plane_id
+      handle_kong_konnect "${env}" $api $token $control_plane_id $control_plane_type_filter
     else
       echo "Unsupported deployment: $deployment"
     fi
