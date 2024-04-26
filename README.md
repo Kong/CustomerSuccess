@@ -127,7 +127,7 @@ Download [KLCR.sh](tools/klcr.sh) to your Mac or Linux machine, and make sure to
 
     $ chmod +x klcr.sh
 
-**IMPORTANT:** in order to get KLCR to return the most accurate results, you should run the following command in your Kong environments:
+**IMPORTANT:** in order to get KLCR to return the most accurate results, you should run the following command in your **Kong Enterprise environments only**:
 
     $ kong migrations reinitialize-workspace-entity-counters
 
@@ -178,13 +178,13 @@ That it is. Assuming you used the example above, the output you will see on your
     Environment   : aws1
     Deployment    : Konnect
     Admin API     : https://us.api.konghq.com/v2
-    ┌──────────────────┬──────────────────┬──────────────────────┐
-    │Control Planes    │Gateway Services  │Discrete Services     │
-    ├──────────────────┼──────────────────┼──────────────────────┤
-    │se-david-lamotta  │18                │16                    │
-    │                  │                  │                      │
-    │Total             │18                │16 (x-control-plane)  │
-    └──────────────────┴──────────────────┴──────────────────────┘    
+    ┌──────────────────┬──────────────────┬──────────────────────┬────────────────────────────┐
+    │Control Planes    │Gateway Services  │Discrete Services     │Control Plane Type          │
+    ├──────────────────┼──────────────────┼──────────────────────┼────────────────────────────┤
+    │se-david-lamotta  │18                │16                    │CLUSTER_TYPE_CONTROL_PLANE  │
+    │                  │                  │                      │                            │
+    │Total             │18                │16 (x-control-plane)  │                            │
+    └──────────────────┴──────────────────┴──────────────────────┘────────────────────────────┘ 
 
     SUMMARY
     ┌───────────────────┬──────────────────┬───────────────────┐
