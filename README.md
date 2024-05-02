@@ -121,6 +121,10 @@ The four services above, irrespective of the Kong control planes (i.e., environm
 
 KLCR has been tested successfully with version **1.7.1** on MacOS 14.2.1, and Ubuntu 23.10. It is a known issue that jq version 1.6 does not work with KLCR; if you are on that version, please upgrade to 1.7.1 before proceeding.
 
+### Bash
+
+KLCR runs in a Bash shell, and it has been tested successfull with Bash **5.2.15(1)** in Ubuntu, and Bash **5.2.26(1)** in Mac. Make sure your Bash shell is at least 5.2.15(1), or else you risk getting errors when KLCR runs.
+
 ## Running KLCR
 
 Download [KLCR.sh](tools/klcr.sh) to your Mac or Linux machine, and make sure to change the permissions on the file:
