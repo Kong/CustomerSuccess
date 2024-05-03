@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KLCR_VERSION="2.2.1"
+KLCR_VERSION="2.2.2"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -307,14 +307,12 @@ function handle_kong_enterprise() {
   workspaces=$(kong_gateway_fetch_workspaces "$api" "$token")  
   klcr_json+=$(printf '{ "environment": "%s", "deployment": "enterprise", "version": "%s", "admin_api": "%s", "status": "%s", "dev_portal": "%s", "workspaces": [' "${env}" "${version}" "$api" "$status" "$dev_portal" )
 
-  total_services_count=0
-  total_discrete_cross_workspace_count=0
-
+  enterprise_services_output=""
   cp_services=[]
 
   if [ -n "$workspaces" ]; then
     # Iterate over each workspace and add services to the array
-    total_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
+    enterprise_services_output+=$(printf 'Workspace\tGateway Services\tDiscrete Services\n';)
     dev_portal_count=0
 
     for workspace in $workspaces; do
@@ -325,9 +323,7 @@ function handle_kong_enterprise() {
 
       services_count=$(echo "$workspace_svc_list" | jq 'length')
       discrete_count=$(echo "$workspace_svc_list" | jq 'unique | length')
-      total_services_count=$(($total_services_count + $services_count))
-
-      total_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
+      enterprise_services_output+=$(printf '\n%s\t%d\t%d\n' "$workspace" "$services_count" "$discrete_count")
 
       if [ $LIST_DISCRETE_SERVICES ]; then
         klcr_json+=$(printf '{"workspace": "%s", "gateway_services": %d, "discrete_services": %d, "discrete_services_list": %s},' "$workspace" $services_count $discrete_count $(echo $workspace_svc_list | jq -c 'unique|sort'))
@@ -343,15 +339,17 @@ function handle_kong_enterprise() {
   fi
 
   # let's add totals per workspace
-  total_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
-  klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $total_services_count $total_discrete_cross_workspace_count )  
+  enterprise_services_count=$(echo "$cp_services" | jq 'length')
+  enterprise_discrete_cross_workspace_count=$(echo "$cp_services" | jq 'unique | length')
 
-  if [ -n "$total_services_output" ]; then
-    total_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
-    total_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $total_services_count "$total_discrete_cross_workspace_count (x-workspace)";)
+  klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $enterprise_services_count $enterprise_discrete_cross_workspace_count )  
+
+  if [ -n "$enterprise_services_output" ]; then
+    enterprise_services_output+=$(printf '\n%s\t%s\t%s\n'  "" "" "";)
+    enterprise_services_output+=$(printf '\n%s\t%d\t%s\n'  "Total" $enterprise_services_count "$enterprise_discrete_cross_workspace_count (x-workspace)";)
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-      echo "$total_services_output" | prettytable 3
+      echo "$enterprise_services_output" | prettytable 3
     fi
   fi
 
@@ -490,10 +488,11 @@ function handle_kong_konnect() {
   control_planes=$(kong_konnect_fetch_control_planes $api $token $control_plane_id)
 
   konnect_services=[]
+  konnect_services_output=""
 
   if [ -n "$control_planes" ]; then
     # Iterate over each control plane and add services to the array
-    total_services_output+=$(printf 'Control Planes\tGateway Services\tDiscrete Services\tControl Plane Type\n';)
+    konnect_services_output+=$(printf 'Control Planes\tGateway Services\tDiscrete Services\tControl Plane Type\n';)
 
     for cp in $control_planes; do
       cp_info=$(kong_konnect_fetch_control_plane_info $api $token $cp)
@@ -522,7 +521,7 @@ function handle_kong_konnect() {
       services_count=$(echo "$cp_services" | jq 'length')
       discrete_count=$(echo "$cp_services" | jq 'unique | length')
 
-      total_services_output+=$(printf '\n%s\t%d\t%d\t%s\n' "$cp_name" "$services_count" "$discrete_count" "$cp_type")
+      konnect_services_output+=$(printf '\n%s\t%d\t%d\t%s\n' "$cp_name" "$services_count" "$discrete_count" "$cp_type")
 
       klcr_json+=$(printf '{"control_plane": "%s"' "$cp_name")
       klcr_json+=$(printf ',"control_plane_id": "%s"' $cp)
@@ -545,18 +544,19 @@ function handle_kong_konnect() {
   fi
 
   # let's add totals per control plane
-  total_services_count=$(echo "$konnect_services" | jq 'length')
-  total_discrete_cross_control_plane_count=$(echo "$konnect_services" | jq 'unique | length')
-  klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $total_services_count $total_discrete_cross_control_plane_count)
+  konnect_services_count=$(echo "$konnect_services" | jq 'length')
+  konnect_discrete_cross_control_plane_count=$(echo "$konnect_services" | jq 'unique | length')
+  klcr_json+=$(printf '], "gateway_services": %d, "discrete_services": %d },' $konnect_services_count $konnect_discrete_cross_control_plane_count)
 
-  if [ -n "$total_services_output" ]; then
-    total_services_output+=$(printf '\n%s\t%s\t%s\t%s\n'  "" "" "" "";)
-    total_services_output+=$(printf '\n%s\t%d\t%s\t%s\n'  "Total" $total_services_count "$total_discrete_cross_control_plane_count (x-control-plane)" "";)
+  if [ -n "$konnect_services_output" ]; then
+    konnect_services_output+=$(printf '\n%s\t%s\t%s\t%s\n'  "" "" "" "";)
+    konnect_services_output+=$(printf '\n%s\t%d\t%s\t%s\n'  "Total" $konnect_services_count "$konnect_discrete_cross_control_plane_count (x-control-plane)" "";)
 
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
-      echo "$total_services_output" | prettytable 4
+      echo "$konnect_services_output" | prettytable 4
     fi
   fi
+  
 }
 
 # Get CLI options
@@ -640,16 +640,17 @@ fi
 
 printf "\n";
 
-ENV_COUNT=$(jq -r '.environments | length' $INPUT_FILE)
+ENVS=$(jq -r '.environments[].deployment' $INPUT_FILE)
 MASTER=$(jq -r '.discrete.master' $INPUT_FILE)
 MINIONS=$(jq -r '.discrete.minions' $INPUT_FILE)
 
 # Count for all environments
 all_gateway_services=[]
-
+summary_output=""
 klcr_json=$(printf '{"klcr_version":"%s", "discrete": {"master": "%s", "minions": "%s"}, "kong_environments": %d, "kong": [' $KLCR_VERSION $MASTER $MINIONS $ENV_COUNT)
+i=0
 
-for ((i=0; $i<$ENV_COUNT; i++)); do
+for v in $ENVS; do
     # A little clunky but this works
     env=$(jq -r --argjson e $i '.environments.[$e].environment' $INPUT_FILE)
     api=$(jq -r --argjson e $i '.environments.[$e].admin_api' $INPUT_FILE)
@@ -659,10 +660,6 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     control_plane_id=$(jq -r --argjson e $i '.environments.[$e].control_plane_id' $INPUT_FILE)
     # as is the filter
     control_plane_type_filter=$(jq -r --argjson e $i '.environments.[$e].control_plane_type_filter' $INPUT_FILE)
-
-    # Count the unique services
-    total_services_output=""
-    summary_output=""
 
     # Track all services separately so we can do one final check for discrete across all workspaces
     cp_services=[]
@@ -678,17 +675,19 @@ for ((i=0; $i<$ENV_COUNT; i++)); do
     all_gateway_services_count=$(echo "$all_gateway_services" | jq 'length')
     all_discrete_services_count=$(echo "$all_gateway_services" | jq 'unique | length')
 
-    summary_output+=$(printf '%s\t%s\t%s\n'  "Kong Environments" "Gateway Services" "Discrete Services")
-    summary_output+=$(printf '\n%d\t%d\t%d (x-environment)\n'  $ENV_COUNT "$all_gateway_services_count" "$all_discrete_services_count")
-
     if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
       printf "\n"
     fi
+
+    i=$((i+1))
 done
 
 klcr_json=$(echo $klcr_json | sed 's/.$//')
 
 if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
+  summary_output+=$(printf '%s\t%s\t%s\n'  "Kong Environments" "Gateway Services" "Discrete Services")
+  summary_output+=$(printf '\n%d\t%d\t%d (x-environment)\n'  $i "$all_gateway_services_count" "$all_discrete_services_count")
+
   printf " SUMMARY\n"
   echo "$summary_output" | prettytable 3
   printf "\n"

@@ -18,7 +18,9 @@ KLCR also gathers the license report for each Kong environment provided, and sto
 
 ## Version
 
-2.2.1 is the latest version of the Kong License Consumption Report.
+2.2.1 is the current stable version of the Kong License Consumption Report.
+
+2.2.2 is the latest version, currently in development.
 
 ## Requirements
 
@@ -50,8 +52,8 @@ Since the objective of KLCR is to count discrete services across a user's Kong e
                 "admin_api" : "https://us.api.konghq.com/v2",
                 "admin_token": "kpat_konnectaccesstoken",
                 "deployment": "konnect",
-                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",        // optional
-                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE_GROUP$"   // optional
+                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  // optional
+                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"   // optional
             }    
         ],
         "discrete": {
@@ -86,8 +88,8 @@ New in 2.2 is the deployment field, as well as a rename from *admin_host* to *ad
                 "admin_api" : "https://us.api.konghq.com/v2",
                 "admin_token": "kpat_konnectaccesstoken",
                 "deployment": "konnect",
-                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",        // optional
-                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE_GROUP$"   // optional
+                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  // optional
+                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"   // optional
             }    
 
 The environment definition for Kong Konnect is slightly different than that for Kong Enterprise. The API now points to the Konnect API, and the token is the Konnect access token. The deployment field indicates Konnect, as expected. Finally, there is an optional *control_plane_id* field. If this field is specified, only services for that control plane will be retrieved and deduplicated; should the field not be present at all, all control planes the user has access to (including read-only access) will be retrieved and deduplicated.
@@ -119,11 +121,11 @@ The four services above, irrespective of the Kong control planes (i.e., environm
 
 [jq](https://jqlang.github.io/jq/) is the tool that allows KLCR to do its magic. If you don't have jq installed, please do so or else you will render KLCR useless.
 
-KLCR has been tested successfully with version **1.7.1** on MacOS 14.2.1, and Ubuntu 23.10. It is a known issue that jq version 1.6 does not work with KLCR; if you are on that version, please upgrade to 1.7.1 before proceeding.
+KLCR has been tested successfully with version **1.7.1** on MacOS 14.2.1, Ubuntu 23.10, and RHEL 8.9. It is a known issue that jq version 1.6 does not work with KLCR; if you are on that version, please upgrade to 1.7.1 before proceeding.
 
 ### Bash
 
-KLCR runs in a Bash shell, and it has been tested successfull with Bash **5.2.15(1)** in Ubuntu, and Bash **5.2.26(1)** in Mac. Make sure your Bash shell is at least 5.2.15(1), or else you risk getting errors when KLCR runs.
+KLCR runs in a Bash shell, and it has been tested successfull with Bash **5.2.15(1)** in Ubuntu, Bash **5.2.26(1)** in Mac, Bash **4.4.20(1)** in RHEL. Make sure your Bash shell is at least 4.4.20(1), or else you risk getting errors when KLCR runs.
 
 ## Running KLCR
 
