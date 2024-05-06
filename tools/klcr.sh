@@ -263,7 +263,7 @@ function kong_gateway_fetch_workspace_services() {
   done
 
   if [[ ! -z "$4" && ! -z "$5" ]]; then    
-    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= sub($minions;$master)')
+    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= gsub($minions;$master)')
   fi
 
   echo $services
@@ -452,7 +452,7 @@ function kong_konnect_fetch_control_plane_services() {
   done  
 
   if [[ ! -z "$4" && ! -z "$5" ]]; then
-    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= sub($minions;$master)')
+    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= gsub($minions;$master)')
   fi
 
   echo $services
