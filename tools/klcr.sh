@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KLCR_VERSION="2.2.2"
+KLCR_VERSION="2.3.0"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -262,8 +262,16 @@ function kong_gateway_fetch_workspace_services() {
     offset=$(echo $raw | jq -r '.next // empty')
   done
 
-  if [[ ! -z "$4" && ! -z "$5" ]]; then    
-    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= gsub($minions;$master)')
+  if [[ ! -z "$DISCRETE" ]]; then  
+    finds=$(echo $DISCRETE | jq -r '.[].find')
+    local i=0
+    
+    for f in $finds; do
+      fnd=$(echo $DISCRETE | jq -r --argjson x $i '.[$x].find')
+      rep=$(echo $DISCRETE | jq -r --argjson x $i '.[$x].replace_with')
+      services=$(echo $services | jq -r -s --arg find $fnd --arg replace_with $rep 'add | .[].service |= gsub($find;$replace_with)')      
+      i=$((i+1))
+    done
   fi
 
   echo $services
@@ -317,7 +325,7 @@ function handle_kong_enterprise() {
 
     for workspace in $workspaces; do
       total_workspaces=$(($total_workspaces + 1))
-      workspace_svc_list=$(kong_gateway_fetch_workspace_services "$api" "$token" "$workspace" "$MASTER" "$MINIONS")
+      workspace_svc_list=$(kong_gateway_fetch_workspace_services "$api" "$token" "$workspace")
       cp_services=$(echo "$cp_services $workspace_svc_list" | jq -s 'add')
       all_gateway_services=$(echo "$all_gateway_services $workspace_svc_list" | jq -s 'add')
 
@@ -451,8 +459,16 @@ function kong_konnect_fetch_control_plane_services() {
     offset=$(echo $raw | jq -r '.next // empty')
   done  
 
-  if [[ ! -z "$4" && ! -z "$5" ]]; then
-    services=$(echo $services | jq -r -s --arg master $4 --arg minions $5 'add | .[].service |= gsub($minions;$master)')
+  if [[ ! -z "$DISCRETE" ]]; then  
+    finds=$(echo $DISCRETE | jq -r '.[].find')
+    local i=0
+    
+    for f in $finds; do
+      fnd=$(echo $DISCRETE | jq -r --argjson x $i '.[$x].find')
+      rep=$(echo $DISCRETE | jq -r --argjson x $i '.[$x].replace_with')
+      services=$(echo $services | jq -r -s --arg find $fnd --arg replace_with $rep 'add | .[].service |= gsub($find;$replace_with)')      
+      i=$((i+1))
+    done
   fi
 
   echo $services
@@ -508,7 +524,7 @@ function handle_kong_konnect() {
       fi
 
       cp_name=$(echo $cp_info | jq -r '.name')      
-      cp_services=$(kong_konnect_fetch_control_plane_services "$api" "$token" $cp "$MASTER" "$MINIONS")
+      cp_services=$(kong_konnect_fetch_control_plane_services "$api" "$token" $cp)
 
       if [ -z "$cp_services" ]; then
         cp_services=()
@@ -640,14 +656,14 @@ fi
 
 printf "\n";
 
+ENV_COUNT=$(jq -r '[.environments[]] | length' $INPUT_FILE)
 ENVS=$(jq -r '.environments[].deployment' $INPUT_FILE)
-MASTER=$(jq -r '.discrete.master' $INPUT_FILE)
-MINIONS=$(jq -r '.discrete.minions' $INPUT_FILE)
+DISCRETE=$(jq -r -c '.discrete' $INPUT_FILE)
 
 # Count for all environments
 all_gateway_services=[]
 summary_output=""
-klcr_json=$(printf '{"klcr_version":"%s", "discrete": {"master": "%s", "minions": "%s"}, "kong_environments": %d, "kong": [' $KLCR_VERSION $MASTER $MINIONS $ENV_COUNT)
+klcr_json=$(printf '{"klcr_version":"%s", "discrete": %s, "kong_environments": %d, "kong": [' $KLCR_VERSION "$DISCRETE" $ENV_COUNT)
 i=0
 
 for v in $ENVS; do

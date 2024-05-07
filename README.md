@@ -18,9 +18,9 @@ KLCR also gathers the license report for each Kong environment provided, and sto
 
 ## Version
 
-2.2.1 is the current stable version of the Kong License Consumption Report.
+2.3 is the current stable version of the Kong License Consumption Report.
 
-2.2.2 is the latest version, currently in development.
+2.3.1 is the latest version, currently in development.
 
 ## Requirements
 
@@ -56,10 +56,17 @@ Since the objective of KLCR is to count discrete services across a user's Kong e
                 "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"   // optional
             }    
         ],
-        "discrete": {
-            "master": "prod",
-            "minions": "dev|stage|qa"
-        }
+        "discrete": 
+        [
+            {
+            "find": "dev-kong|stage-kong|qa-kong|prod-kong",
+            "replace_with": "kong"
+            },    
+            {
+            "find": "dev|stage|qa",
+            "replace_with": "prod"      
+            }
+        ]
     }
 
 In the example above, there are 3 Kong environments: *prod* and *dr* are 2 Kong Enterprise environments, and *aws1* is a Konnect environment. Support for Konnect is new as of version 2.2.0.
@@ -106,16 +113,54 @@ If you'd only like KLCR to evaluate Control PLanes of type CLUSTER_TYPE_CONTROL_
 
 New as of KLCR 1.1, there is a section where you are able to provide "discreteness" between your API services. What this means is that if you have the same "discrete unit of programmatic functionality" in different environments (e.g., dev, prod, qa, and stage), and the upstream hosts are aptly named based on the environment they serve, KLCR will count those services as one. An example should help illustrate this.
     
-    ┌──────────────────────┬──────────────────────────────────┐
-    │Service Name          │Backend                           │
-    ├──────────────────────┼──────────────────────────────────┤
-    │dev-catfact-service   │ https://dev.catfact.ninja/fact   │
-    │qa-catfact-service    │ https://qa.catfact.ninja/fact    │
-    │stage-catfact-service │ https://stage.catfact.ninja/fact │
-    │prod-catfact-service  │ https://prod.catfact.ninja/fact  │
-    └──────────────────────┴──────────────────────────────────┘    
+    ┌──────────────────────┬────────────────────────────────────────┐
+    │Service Name          │Backend                                 │
+    ├──────────────────────┼────────────────────────────────────────┤
+    │dev-catfact-service   │ https://dev.dev-catfact.ninja/fact     │
+    │qa-catfact-service    │ https://qa.qa-catfact.ninja/fact       │
+    │stage-catfact-service │ https://stage.stage-catfact.ninja/fact │
+    │prod-catfact-service  │ https://prod.prod-catfact.ninja/fact   │
+    └──────────────────────┴────────────────────────────────────────┘    
 
 The four services above, irrespective of the Kong control planes (i.e., environments) where they are located, will be counted as 1 discrete service by KLCR.
+
+KLCR 2.3 introduces the ability to do a series of string replacements, when backend service definitions are slightly more complex. The block in the input file:
+
+    "discrete": 
+    [
+        {
+        "find": "dev-catfact|stage-catfact|qa-catfact|prod-catfact",
+        "replace_with": "catfact"
+        },    
+        {
+        "find": "dev|stage|qa",
+        "replace_with": "prod"      
+        }
+    ]
+
+...instructs KLCR to *find* the strings in the regex, and *replace_with* catfact. In other words, when KLCR finds the first entry in the *discrete* array, the services will look like this:
+
+    ┌──────────────────────────────────┐
+    │Backend                           │
+    ├──────────────────────────────────┤
+    │https://dev.catfact.ninja/fact    │
+    │https://qa.catfact.ninja/fact     │
+    │https://stage.catfact.ninja/fact  │
+    │https://prod.catfact.ninja/fact   │
+    └──────────────────────────────────┘  
+
+After the second entry in the *discrete* array, the services will all look like this:
+
+    ┌─────────────────────────────────┐
+    │Backend                          │
+    ├─────────────────────────────────┤
+    │https://prod.catfact.ninja/fact  │
+    │https://prod.catfact.ninja/fact  │
+    │https://prod.catfact.ninja/fact  │
+    │https://prod.catfact.ninja/fact  │
+    └─────────────────────────────────┘  
+
+When KLCR runs the **jq unique** command, those 4 services will be counted as 1, thus indicating 1 discrete service across 4 different environments.
 
 ### JQ
 
