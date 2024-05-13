@@ -174,19 +174,20 @@ KLCR runs in a Bash shell, and it has been tested successfull with Bash **5.2.15
 
 ## Running KLCR
 
-Download [KLCR.sh](tools/klcr.sh) to your Mac or Linux machine, and make sure to change the permissions on the file:
-
-    $ chmod +x klcr.sh
-
 **IMPORTANT:** in order to get KLCR to return the most accurate results, you should run the following command in your **Kong Enterprise environments only**:
 
     $ kong migrations reinitialize-workspace-entity-counters
 
 As the [docs](https://docs.konghq.com/gateway/latest/reference/cli/#kong-migrations) state, that command will reset the entity counters from the database entities. You should run this in every Kong environment specified in the input file at least once before running KLCR (once or multiple times). If it has been several months since you ran the command above, please do so before running KLCR.
 
-You can get creative and add klcr.sh to your path if you'd like to make execution more flexible. Now take it for a drive:
+You can run KLCR directly from the shell without having to download anything. **This is preferred way, as you'll always run the latest version.** 
 
-    $ ./klcr.sh -i envs.json -o ./test
+    $ bash <(curl -Ls https://raw.githubusercontent.com/Kong/CustomerSuccess/main/tools/klcr.sh) -i envs.json -o ./test -k
+
+Alternativively, you can download [KLCR.sh](tools/klcr.sh) to your Mac or Linux machine (make sure to change the permissions on the file). You can get creative and add klcr.sh to your path if you'd like to make execution more flexible. Now take it for a drive:
+
+    $ chmod +x klcr.sh
+    $ ./klcr.sh -i envs.json -o ./test -k
 
 That it is. Assuming you used the example above, the output you will see on your terminal should be something like this:
 
