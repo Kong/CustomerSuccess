@@ -166,14 +166,29 @@ function kong_gateway_fetch_workspace_services_raw() {
   echo "${services}"
 }
 
+# Get a singular service
+function kong_gateway_fetch_workspace_service_raw() {
+  local size=1000
+  local api="$1"
+  local token="$2"
+  local workspace="$3"
+  local service_id="$4"
+  local path="/$workspace/services/$service_id"
+
+  # get the first batch of $size services
+  local raw=$(kong_gateway_fetch_from_admin_api $api $token $path | jq)
+  local service="${raw}"
+
+  echo "${service}"
+}
+
 # Get a raw list of routes per service
 function kong_gateway_fetch_routes_raw() {
   local size=1000
   local api="$1"
   local token="$2"
   local workspace="$3"
-  local service="$4"
-  local path="/$workspace/services/$service/routes?size=$size"
+  local path="/$workspace/routes?size=$size"
 
   # get the first batch of $size rotues
   local raw=$(kong_gateway_fetch_from_admin_api $api $token $path | jq)
