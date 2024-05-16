@@ -58,7 +58,7 @@ for v in $ENVS; do
   if [[ "$NO_PRETTY_PRINT" -ne 1 ]]; then
     printf " Environment   : %s\n" "${env}";
     printf " Deployment    : Enterprise (%s)\n" "$version";
-    printf " Admin API     : %s" "${api}\n";
+    printf " Admin API     : %s\n" "${api}";
     summary_output+=$(
      printf '%s\t%s\t%s\t%s\t%s\t%s\n' "Workspace" "Kong Route Name" "Kong Route Path" "Service Name" "Service Host" "Service Path"
     )
@@ -66,7 +66,6 @@ for v in $ENVS; do
 
   # For each workspace, get a list of routes
   for workspace in $workspaces; do
-    echo "Workspace: $workspace"
     routes=$(
       kong_gateway_fetch_routes_raw "$api" "$token" "$workspace" "$service"
     )
