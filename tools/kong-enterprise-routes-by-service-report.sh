@@ -59,7 +59,6 @@ for v in $ENVS; do
     printf " Environment   : %s\n" "${env}";
     printf " Deployment    : Enterprise (%s)\n" "$version";
     printf " Admin API     : %s" "${api}\n";
-    printf " Workspaces    : %s" "${workspaces}\n";
     summary_output+=$(
      printf '%s\t%s\t%s\t%s\t%s\t%s\n' "Workspace" "Kong Route Name" "Kong Route Path" "Service Name" "Service Host" "Service Path"
     )
