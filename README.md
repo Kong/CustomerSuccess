@@ -52,8 +52,8 @@ Since the objective of KLCR is to count discrete services across a user's Kong e
                 "admin_api" : "https://us.api.konghq.com/v2",
                 "admin_token": "kpat_konnectaccesstoken",
                 "deployment": "konnect",
-                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  // optional
-                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"   // optional
+                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"
             }    
         ],
         "discrete": 
@@ -95,8 +95,8 @@ New in 2.2 is the deployment field, as well as a rename from *admin_host* to *ad
                 "admin_api" : "https://us.api.konghq.com/v2",
                 "admin_token": "kpat_konnectaccesstoken",
                 "deployment": "konnect",
-                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",  // optional
-                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"   // optional
+                "control_plane_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+                "control_plane_type_filter": "CLUSTER_TYPE_CONTROL_PLANE$"
             }    
 
 The environment definition for Kong Konnect is slightly different than that for Kong Enterprise. The API now points to the Konnect API, and the token is the Konnect access token. The deployment field indicates Konnect, as expected. Finally, there is an optional *control_plane_id* field. If this field is specified, only services for that control plane will be retrieved and deduplicated; should the field not be present at all, all control planes the user has access to (including read-only access) will be retrieved and deduplicated.
