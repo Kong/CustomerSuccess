@@ -94,6 +94,7 @@ for v in $ENVS; do
           "$service_path")
     done
   done
+  i=$((i+1))
 done
 
 echo "$summary_output" | prettytable 6
