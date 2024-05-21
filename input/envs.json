@@ -14,8 +14,10 @@
       "deployment": "enterprise"
     }
   ],
-  "discrete": {
-    "master": "prod",
-    "minions": "dev|stage|qa"
-  }
+  "discrete": [
+    {
+      "master": "prod",
+      "minions": "dev|stage|qa"
+    }
+  ]
 }
