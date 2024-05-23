@@ -16,8 +16,8 @@
   ],
   "discrete": [
     {
-      "master": "prod",
-      "minions": "dev|stage|qa"
+      "find": "foo|bar",
+      "replace_with": "car"
     }
   ]
 }
