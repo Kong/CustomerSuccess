@@ -25,7 +25,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVIsed OF THE POSSIBILITY OF SUCH DAMAGE.
 ####
 
-KLCR_VERSION="2.3.0"
+KLCR_VERSION="2.3.1"
 
 _prettytable_char_top_left="┌"
 _prettytable_char_horizontal="─"
@@ -636,6 +636,14 @@ eval set -- "$PARAMS"
 if ! command -v jq &> /dev/null; then
     echo "Error: 'jq' is not installed or not available in the PATH."
     echo "Please install 'jq' to proceed. You can download it from https://stedolan.github.io/jq/."
+    exit 1
+fi
+
+# Check that jq is at version 1.7.0 or above
+jq_ver=`jq -V`
+jq_ver=$(echo $jq_ver | tr -d -c 0-9 )
+if [ "$jq_ver" -le "170" ] ; then
+    echo "jq version is below version 1.7, please upgrade to version 1.7 before continuing"
     exit 1
 fi
 
