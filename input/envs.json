@@ -14,8 +14,10 @@
       "deployment": "enterprise"
     }
   ],
-  "discrete": {
-    "master": "prod",
-    "minions": "dev|stage|qa"
-  }
+  "discrete": [
+    {
+      "find": "foo|bar",
+      "replace_with": "car"
+    }
+  ]
 }
