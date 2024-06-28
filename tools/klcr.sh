@@ -642,7 +642,7 @@ fi
 # Check that jq is at version 1.7.0 or above
 jq_ver=`jq -V`
 jq_ver=$(echo $jq_ver | tr -d -c 0-9 )
-if [ "$jq_ver" -le "170" ] ; then
+if [ "$jq_ver" -lt "170" ] && [ "jq_ver" -ne "17" ] ; then
     echo "jq version is below version 1.7, please upgrade to version 1.7 before continuing"
     exit 1
 fi
