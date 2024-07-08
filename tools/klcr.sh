@@ -640,9 +640,10 @@ if ! command -v jq &> /dev/null; then
 fi
 
 # Check that jq is at version 1.7.0 or above
-jq_ver=`jq -V`
-jq_ver=$(echo $jq_ver | tr -d -c 0-9 )
-if [ "$jq_ver" -lt "170" ] && [ "jq_ver" -ne "17" ] ; then
+jq_ver_major=`jq -V | cut -f2 -d- | cut -d. -f1`
+jq_ver_minor=`jq -V | cut -f2 -d- | cut -d. -f2`
+
+if [[ "$jq_ver_major" -lt 1 ]] || { [[ "$jq_ver_major" -eq 1 ]] && [[ "$jq_ver_minor" -lt 7 ]]; }; then
     echo "jq version is below version 1.7, please upgrade to version 1.7 before continuing"
     exit 1
 fi
