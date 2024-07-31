@@ -2,7 +2,7 @@
 
 Welcome to the tools section of the Kong Customer Success team. As of this moment, the toolbox contains a single, albeit important, tool: **Kong License Consumption Report - KLCR**.
 
-The purpose of KLCR (pronounced "clicker", and newly renamed from KICK to avoid confusion with Kong's KIC--Kubernetes Ingress Controller) is to provide a simple mechanism for counting the number of services (total and discrete) across one or more Kong Enterprise environments, and gather an understanding of how many duplicate services exist across one's Kong estate.
+The purpose of KLCR (pronounced "clicker") is to provide a simple mechanism for counting the number of services (total and discrete) across one or more Kong Enterprise environments, and gather an understanding of how many duplicate services exist across one's Kong estate.
 
 The general definition of a service is "a discrete unit of programmatic functionality that is exposed for remote consumption and managed through the Software." As such, KLCR defines a discrete service by leveraging different components that make up a service in Kong Gateway; namely:
 
