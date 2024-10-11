@@ -240,10 +240,10 @@ That it is. Assuming you used the example above, the output you will see on your
     ┌───────────────────┬──────────────────┬───────────────────┐
     │Kong Environments  │Gateway Services  │Discrete Services  │
     ├───────────────────┼──────────────────┼───────────────────┤
-    │3                  │42                │34 (x-environment) │
+    │3                  │66                │35 (x-environment) │
     └───────────────────┴──────────────────┴───────────────────┘
 
-The keen observer will notice that in this example the number of discrete services is 34. *dev* and *prod* are identical Kong Enterprise environments; *aws1* is a Konnect environment with 16 discrete services. KLCR is aggregating the number of environments (3), the number of gateway services (24 + 24 + 18), and the number of discrete services among the 3 environments (**34**). It is additionally worth mentioning that KLCR shows the number of discrete services across an individual Kong environment's workspaces (in Kong Enterprise) and control planes (in Konnect). We can see above that the *default* workspace has 19 gateway services, but out of those only 17 are discrete. The *discrete* workspace has the `https://[dev|qa|stage|prod].catfact.ninja/fact` service definitions, which count as 4 gateway services, but only as 1 discrete service.
+The keen observer will notice that in this example the number of discrete services is 35. *dr* and *prod* are identical Kong Enterprise environments; *aws1* is a Konnect environment with 16 discrete services that are completely different than the on-prem services. KLCR is aggregating the number of environments (3), the number of gateway services (24 + 24 + 18), and the number of discrete services among the 3 environments (**35**). It is additionally worth mentioning that KLCR shows the number of discrete services across an individual Kong environment's workspaces (in Kong Enterprise) and control planes (in Konnect). We can see above that the *default* workspace has 19 gateway services, but out of those only 17 are discrete. The *discrete* workspace has the `https://[dev|qa|stage|prod].catfact.ninja/fact` service definitions, which count as 4 gateway services, but only as 1 discrete service.
 
 The -o flag specifies a directory where all the license report files will be created.
 
