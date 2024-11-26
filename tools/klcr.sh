@@ -654,7 +654,7 @@ if [[ -z "$INPUT_FILE" ]]; then
 fi
 
 if [[ -z "$OUTPUT_DIR" ]]; then
-    echo "Output directory is missing. Please specify one with the --ouput-dir (-o) option."
+    echo "Output directory is missing. Please specify one with the --output-dir (-o) option."
     exit 1
 fi
 
